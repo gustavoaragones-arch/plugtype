@@ -1,0 +1,92 @@
+{
+  "A": {
+    "name": "Type A",
+    "description": "Two flat parallel pins",
+    "regions": "North America, Japan",
+    "image": ""
+  },
+  "B": {
+    "name": "Type B",
+    "description": "Two flat parallel pins with grounding pin",
+    "regions": "North America",
+    "image": ""
+  },
+  "C": {
+    "name": "Type C",
+    "description": "Two round pins (Europlug)",
+    "regions": "Europe, Asia, parts of Africa and South America",
+    "image": ""
+  },
+  "D": {
+    "name": "Type D",
+    "description": "Three round pins in triangle",
+    "regions": "India, some African and Asian countries",
+    "image": ""
+  },
+  "E": {
+    "name": "Type E",
+    "description": "Two round pins with male grounding",
+    "regions": "France, Belgium, Poland, Czech Republic",
+    "image": ""
+  },
+  "F": {
+    "name": "Type F",
+    "description": "Two round pins with side grounding clips (Schuko)",
+    "regions": "Germany, Austria, Netherlands, Spain, many European countries",
+    "image": ""
+  },
+  "G": {
+    "name": "Type G",
+    "description": "Three rectangular blades",
+    "regions": "United Kingdom, Ireland, Hong Kong, Singapore, Malta",
+    "image": ""
+  },
+  "H": {
+    "name": "Type H",
+    "description": "Three round pins in line",
+    "regions": "Israel, Palestine",
+    "image": ""
+  },
+  "I": {
+    "name": "Type I",
+    "description": "Two flat pins in V-shape, optional grounding",
+    "regions": "Australia, New Zealand, Argentina, China",
+    "image": ""
+  },
+  "J": {
+    "name": "Type J",
+    "description": "Two round pins with grounding pin",
+    "regions": "Switzerland, Liechtenstein",
+    "image": ""
+  },
+  "K": {
+    "name": "Type K",
+    "description": "Two round pins with semi-circular grounding",
+    "regions": "Denmark, Greenland",
+    "image": ""
+  },
+  "L": {
+    "name": "Type L",
+    "description": "Three round pins in line",
+    "regions": "Italy, Chile",
+    "image": ""
+  },
+  "M": {
+    "name": "Type M",
+    "description": "Three large round pins in triangle",
+    "regions": "South Africa, India, some other countries",
+    "image": ""
+  },
+  "N": {
+    "name": "Type N",
+    "description": "Two round pins with grounding (Brazilian)",
+    "regions": "Brazil",
+    "image": ""
+  },
+  "O": {
+    "name": "Type O",
+    "description": "Three round pins",
+    "regions": "Thailand",
+    "image": ""
+  }
+}

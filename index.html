@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plug Type World – Global Power Plug & Voltage Compatibility Tool</title>
+  <meta name="description" content="Find out if your plug works in another country. Compare plug types, voltage, and frequency instantly with our global compatibility tool.">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Plug Type World",
+    "url": "https://plugtype.world",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Albor Digital LLC"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="hero">
+    <h1>Global Plug Adapter & Voltage Compatibility Tool</h1>
+    <p class="tagline">Check if your plug works abroad</p>
+  </header>
+
+  <main>
+    <section class="tool-section" aria-labelledby="tool-heading">
+      <h2 id="tool-heading">Compatibility Tool</h2>
+      <form class="compat-form" id="compat-form">
+        <div class="field">
+          <label for="from-country">I am from</label>
+          <select id="from-country" name="from-country" required aria-label="Select your home country">
+            <option value="">Select country…</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="to-country">I am going to</label>
+          <select id="to-country" name="to-country" required aria-label="Select destination country">
+            <option value="">Select country…</option>
+          </select>
+        </div>
+      </form>
+    </section>
+
+    <section class="result-section" id="result-section" aria-live="polite" aria-atomic="true" hidden>
+      <div class="result-card" id="result-card">
+        <h2 class="result-title" id="result-title"></h2>
+        <div class="result-plug-types">
+          <p class="result-plug-from" id="result-plug-from"></p>
+          <p class="result-plug-to" id="result-plug-to"></p>
+        </div>
+        <div class="result-compat" id="result-compat"></div>
+        <div class="result-voltage" id="result-voltage"></div>
+        <div class="result-warning" id="result-warning" hidden></div>
+      </div>
+    </section>
+
+    <section class="popular-countries" aria-labelledby="popular-heading">
+      <h2 id="popular-heading">Popular Countries</h2>
+      <ul>
+        <li><a href="pages/countries/italy.html">Italy</a></li>
+        <li><a href="pages/countries/japan.html">Japan</a></li>
+        <li><a href="pages/countries/united-states.html">United States</a></li>
+        <li><a href="pages/countries/united-kingdom.html">United Kingdom</a></li>
+        <li><a href="pages/countries/australia.html">Australia</a></li>
+        <li><a href="pages/countries/france.html">France</a></li>
+        <li><a href="pages/countries/germany.html">Germany</a></li>
+        <li><a href="pages/countries/spain.html">Spain</a></li>
+        <li><a href="pages/countries/thailand.html">Thailand</a></li>
+        <li><a href="pages/countries/brazil.html">Brazil</a></li>
+      </ul>
+    </section>
+
+    <section class="info-section">
+      <h2>How it works</h2>
+      <p>Choose your home country and your destination. We show plug types, voltage, and whether you need an adapter or voltage converter.</p>
+    </section>
+
+    <section class="faq-section">
+      <h2>FAQ</h2>
+      <dl>
+        <dt>Do I need an adapter?</dt>
+        <dd>If your country and the destination share at least one plug type, your plug may fit. Otherwise you need a travel adapter.</dd>
+        <dt>When do I need a voltage converter?</dt>
+        <dd>If the voltage difference is more than about 20%, some appliances (especially those without universal input) may need a converter or transformer.</dd>
+        <dt>What about frequency (50 Hz vs 60 Hz)?</dt>
+        <dd>Most modern chargers and electronics work on both. Motors and clocks can be affected; check your appliance label.</dd>
+      </dl>
+    </section>
+
+    <section class="creators-section">
+      <h2>About the creators</h2>
+      <p>Plug Type World is developed and maintained by <a href="about.html">Albor Digital LLC</a>, an independent digital product studio building tools and software used by people worldwide.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    <p>Plug Type World is a product of Albor Digital LLC.</p>
+  </footer>
+
+  <script src="js/tool.js"></script>
+</body>
+</html>

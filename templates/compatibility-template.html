@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="stylesheet" href="{{CSS_PATH}}">
+  <script type="application/ld+json">{{ARTICLE_JSON}}</script>
+</head>
+<body>
+  <header class="hero">
+    <h1>{{H1}}</h1>
+    <p class="tagline"><a href="{{HOME_LINK}}">← Compatibility tool</a></p>
+  </header>
+
+  <main>
+    <!-- adsense-slot -->
+    <section class="compat-summary">
+      <h2>Compatibility summary</h2>
+      <p>{{SUMMARY_TEXT}}</p>
+    </section>
+
+    <section class="compat-plug">
+      <h2>Plug comparison</h2>
+      <p><strong>{{ORIGIN_NAME}} plug types:</strong> {{ORIGIN_PLUG_LINE}}</p>
+      <p><strong>{{DEST_NAME}} plug types:</strong> {{DEST_PLUG_LINE}}</p>
+      <p>{{ADAPTER_EXPLANATION}}</p>
+    </section>
+
+    <section class="compat-voltage">
+      <h2>Voltage comparison</h2>
+      <p>{{ORIGIN_NAME}}: {{ORIGIN_VOLTAGE}}V, {{ORIGIN_FREQ}}Hz</p>
+      <p>{{DEST_NAME}}: {{DEST_VOLTAGE}}V, {{DEST_FREQ}}Hz</p>
+      {{VOLTAGE_WARNING}}
+    </section>
+
+    <section class="cta-section">
+      <h2>Check any country pair</h2>
+      <p><a href="{{HOME_LINK}}" class="cta-button">Use the compatibility tool</a></p>
+    </section>
+
+    <section class="compat-related">
+      <h2>Country pages</h2>
+      <p><a href="{{ORIGIN_COUNTRY_LINK}}">{{ORIGIN_NAME}} — plug types & voltage</a> · <a href="{{DEST_COUNTRY_LINK}}">{{DEST_NAME}} — plug types & voltage</a></p>
+    </section>
+
+    <!-- adsense-slot -->
+    <section class="compat-related-pages">
+      <h2>Related compatibility guides</h2>
+      <p>{{RELATED_LINKS}}</p>
+    </section>
+    <!-- adsense-slot -->
+  </main>
+
+  <footer>
+    <p><a href="{{ROOT}}about.html">About</a> · <a href="{{ROOT}}contact.html">Contact</a> · <a href="{{ROOT}}privacy.html">Privacy</a> · <a href="{{ROOT}}terms.html">Terms</a></p>
+    <p>Plug Type World is a product of Albor Digital LLC.</p>
+  </footer>
+</body>
+</html>

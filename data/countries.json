@@ -1,0 +1,2425 @@
+{
+  "argentina": {
+    "name": "Argentina",
+    "iso": "AR",
+    "plug_types": [
+      "C",
+      "I"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "australia": {
+    "name": "Australia",
+    "iso": "AU",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "austria": {
+    "name": "Austria",
+    "iso": "AT",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "belgium": {
+    "name": "Belgium",
+    "iso": "BE",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "brazil": {
+    "name": "Brazil",
+    "iso": "BR",
+    "plug_types": [
+      "C",
+      "N"
+    ],
+    "voltage": 127,
+    "frequency": 60
+  },
+  "canada": {
+    "name": "Canada",
+    "iso": "CA",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "chile": {
+    "name": "Chile",
+    "iso": "CL",
+    "plug_types": [
+      "C",
+      "L"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "china": {
+    "name": "China",
+    "iso": "CN",
+    "plug_types": [
+      "A",
+      "C",
+      "I"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "colombia": {
+    "name": "Colombia",
+    "iso": "CO",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "costa-rica": {
+    "name": "Costa Rica",
+    "iso": "CR",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "croatia": {
+    "name": "Croatia",
+    "iso": "HR",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "czech-republic": {
+    "name": "Czech Republic",
+    "iso": "CZ",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "denmark": {
+    "name": "Denmark",
+    "iso": "DK",
+    "plug_types": [
+      "C",
+      "K"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "egypt": {
+    "name": "Egypt",
+    "iso": "EG",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "finland": {
+    "name": "Finland",
+    "iso": "FI",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "france": {
+    "name": "France",
+    "iso": "FR",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "germany": {
+    "name": "Germany",
+    "iso": "DE",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "greece": {
+    "name": "Greece",
+    "iso": "GR",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "hong-kong": {
+    "name": "Hong Kong",
+    "iso": "HK",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "india": {
+    "name": "India",
+    "iso": "IN",
+    "plug_types": [
+      "C",
+      "D",
+      "M"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "indonesia": {
+    "name": "Indonesia",
+    "iso": "ID",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "ireland": {
+    "name": "Ireland",
+    "iso": "IE",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "israel": {
+    "name": "Israel",
+    "iso": "IL",
+    "plug_types": [
+      "C",
+      "H"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "italy": {
+    "name": "Italy",
+    "iso": "IT",
+    "plug_types": [
+      "C",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "japan": {
+    "name": "Japan",
+    "iso": "JP",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 100,
+    "frequency": 50
+  },
+  "mexico": {
+    "name": "Mexico",
+    "iso": "MX",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 127,
+    "frequency": 60
+  },
+  "netherlands": {
+    "name": "Netherlands",
+    "iso": "NL",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "new-zealand": {
+    "name": "New Zealand",
+    "iso": "NZ",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "norway": {
+    "name": "Norway",
+    "iso": "NO",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "philippines": {
+    "name": "Philippines",
+    "iso": "PH",
+    "plug_types": [
+      "A",
+      "B",
+      "C"
+    ],
+    "voltage": 220,
+    "frequency": 60
+  },
+  "poland": {
+    "name": "Poland",
+    "iso": "PL",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "portugal": {
+    "name": "Portugal",
+    "iso": "PT",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "singapore": {
+    "name": "Singapore",
+    "iso": "SG",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "south-africa": {
+    "name": "South Africa",
+    "iso": "ZA",
+    "plug_types": [
+      "C",
+      "D",
+      "M",
+      "N"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "south-korea": {
+    "name": "South Korea",
+    "iso": "KR",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 220,
+    "frequency": 60
+  },
+  "spain": {
+    "name": "Spain",
+    "iso": "ES",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "sweden": {
+    "name": "Sweden",
+    "iso": "SE",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "switzerland": {
+    "name": "Switzerland",
+    "iso": "CH",
+    "plug_types": [
+      "C",
+      "J"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "thailand": {
+    "name": "Thailand",
+    "iso": "TH",
+    "plug_types": [
+      "A",
+      "B",
+      "C",
+      "O"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "turkey": {
+    "name": "Turkey",
+    "iso": "TR",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "united-kingdom": {
+    "name": "United Kingdom",
+    "iso": "GB",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "united-states": {
+    "name": "United States",
+    "iso": "US",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "vietnam": {
+    "name": "Vietnam",
+    "iso": "VN",
+    "plug_types": [
+      "A",
+      "C",
+      "F"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "afghanistan": {
+    "name": "Afghanistan",
+    "iso": "AF",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "albania": {
+    "name": "Albania",
+    "iso": "AL",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "algeria": {
+    "name": "Algeria",
+    "iso": "DZ",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "andorra": {
+    "name": "Andorra",
+    "iso": "AD",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "angola": {
+    "name": "Angola",
+    "iso": "AO",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "antigua-and-barbuda": {
+    "name": "Antigua and Barbuda",
+    "iso": "AG",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "armenia": {
+    "name": "Armenia",
+    "iso": "AM",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "azerbaijan": {
+    "name": "Azerbaijan",
+    "iso": "AZ",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bahamas": {
+    "name": "Bahamas",
+    "iso": "BS",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "bahrain": {
+    "name": "Bahrain",
+    "iso": "BH",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bangladesh": {
+    "name": "Bangladesh",
+    "iso": "BD",
+    "plug_types": [
+      "A",
+      "C",
+      "D",
+      "M",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "barbados": {
+    "name": "Barbados",
+    "iso": "BB",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 115,
+    "frequency": 50
+  },
+  "belarus": {
+    "name": "Belarus",
+    "iso": "BY",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "belize": {
+    "name": "Belize",
+    "iso": "BZ",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "benin": {
+    "name": "Benin",
+    "iso": "BJ",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bhutan": {
+    "name": "Bhutan",
+    "iso": "BT",
+    "plug_types": [
+      "C",
+      "D",
+      "M"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bolivia": {
+    "name": "Bolivia",
+    "iso": "BO",
+    "plug_types": [
+      "A",
+      "B",
+      "C"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bosnia-and-herzegovina": {
+    "name": "Bosnia and Herzegovina",
+    "iso": "BA",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "botswana": {
+    "name": "Botswana",
+    "iso": "BW",
+    "plug_types": [
+      "M"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "brunei": {
+    "name": "Brunei",
+    "iso": "BN",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "bulgaria": {
+    "name": "Bulgaria",
+    "iso": "BG",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "burkina-faso": {
+    "name": "Burkina Faso",
+    "iso": "BF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "burundi": {
+    "name": "Burundi",
+    "iso": "BI",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "cambodia": {
+    "name": "Cambodia",
+    "iso": "KH",
+    "plug_types": [
+      "A",
+      "B",
+      "C",
+      "F",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "cameroon": {
+    "name": "Cameroon",
+    "iso": "CM",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "cape-verde": {
+    "name": "Cape Verde",
+    "iso": "CV",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "central-african-republic": {
+    "name": "Central African Republic",
+    "iso": "CF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "chad": {
+    "name": "Chad",
+    "iso": "TD",
+    "plug_types": [
+      "C",
+      "E",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "comoros": {
+    "name": "Comoros",
+    "iso": "KM",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "congo-brazzaville": {
+    "name": "Republic of the Congo",
+    "iso": "CG",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "congo-kinshasa": {
+    "name": "Democratic Republic of the Congo",
+    "iso": "CD",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "cuba": {
+    "name": "Cuba",
+    "iso": "CU",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "cyprus": {
+    "name": "Cyprus",
+    "iso": "CY",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "djibouti": {
+    "name": "Djibouti",
+    "iso": "DJ",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "dominica": {
+    "name": "Dominica",
+    "iso": "DM",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "dominican-republic": {
+    "name": "Dominican Republic",
+    "iso": "DO",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "ecuador": {
+    "name": "Ecuador",
+    "iso": "EC",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "el-salvador": {
+    "name": "El Salvador",
+    "iso": "SV",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "equatorial-guinea": {
+    "name": "Equatorial Guinea",
+    "iso": "GQ",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "eritrea": {
+    "name": "Eritrea",
+    "iso": "ER",
+    "plug_types": [
+      "C",
+      "E",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "estonia": {
+    "name": "Estonia",
+    "iso": "EE",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "eswatini": {
+    "name": "Eswatini",
+    "iso": "SZ",
+    "plug_types": [
+      "C",
+      "M",
+      "N"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "ethiopia": {
+    "name": "Ethiopia",
+    "iso": "ET",
+    "plug_types": [
+      "C",
+      "F",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "fiji": {
+    "name": "Fiji",
+    "iso": "FJ",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "gabon": {
+    "name": "Gabon",
+    "iso": "GA",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "gambia": {
+    "name": "Gambia",
+    "iso": "GM",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "georgia": {
+    "name": "Georgia",
+    "iso": "GE",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "ghana": {
+    "name": "Ghana",
+    "iso": "GH",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "grenada": {
+    "name": "Grenada",
+    "iso": "GD",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guatemala": {
+    "name": "Guatemala",
+    "iso": "GT",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "guinea": {
+    "name": "Guinea",
+    "iso": "GN",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guinea-bissau": {
+    "name": "Guinea-Bissau",
+    "iso": "GW",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guyana": {
+    "name": "Guyana",
+    "iso": "GY",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 220,
+    "frequency": 50
+  },
+  "haiti": {
+    "name": "Haiti",
+    "iso": "HT",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "honduras": {
+    "name": "Honduras",
+    "iso": "HN",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "hungary": {
+    "name": "Hungary",
+    "iso": "HU",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "iceland": {
+    "name": "Iceland",
+    "iso": "IS",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "iran": {
+    "name": "Iran",
+    "iso": "IR",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "iraq": {
+    "name": "Iraq",
+    "iso": "IQ",
+    "plug_types": [
+      "C",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "jamaica": {
+    "name": "Jamaica",
+    "iso": "JM",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 50
+  },
+  "jordan": {
+    "name": "Jordan",
+    "iso": "JO",
+    "plug_types": [
+      "C",
+      "F",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "kazakhstan": {
+    "name": "Kazakhstan",
+    "iso": "KZ",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "kenya": {
+    "name": "Kenya",
+    "iso": "KE",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "kiribati": {
+    "name": "Kiribati",
+    "iso": "KI",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "kosovo": {
+    "name": "Kosovo",
+    "iso": "XK",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "kuwait": {
+    "name": "Kuwait",
+    "iso": "KW",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "kyrgyzstan": {
+    "name": "Kyrgyzstan",
+    "iso": "KG",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "laos": {
+    "name": "Laos",
+    "iso": "LA",
+    "plug_types": [
+      "A",
+      "B",
+      "C"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "latvia": {
+    "name": "Latvia",
+    "iso": "LV",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "lebanon": {
+    "name": "Lebanon",
+    "iso": "LB",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "lesotho": {
+    "name": "Lesotho",
+    "iso": "LS",
+    "plug_types": [
+      "M"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "liberia": {
+    "name": "Liberia",
+    "iso": "LR",
+    "plug_types": [
+      "C",
+      "D",
+      "F",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "libya": {
+    "name": "Libya",
+    "iso": "LY",
+    "plug_types": [
+      "C",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "liechtenstein": {
+    "name": "Liechtenstein",
+    "iso": "LI",
+    "plug_types": [
+      "C",
+      "J"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "lithuania": {
+    "name": "Lithuania",
+    "iso": "LT",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "luxembourg": {
+    "name": "Luxembourg",
+    "iso": "LU",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "macau": {
+    "name": "Macau",
+    "iso": "MO",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "madagascar": {
+    "name": "Madagascar",
+    "iso": "MG",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "malawi": {
+    "name": "Malawi",
+    "iso": "MW",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "malaysia": {
+    "name": "Malaysia",
+    "iso": "MY",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "maldives": {
+    "name": "Maldives",
+    "iso": "MV",
+    "plug_types": [
+      "C",
+      "D",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "mali": {
+    "name": "Mali",
+    "iso": "ML",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "malta": {
+    "name": "Malta",
+    "iso": "MT",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "marshall-islands": {
+    "name": "Marshall Islands",
+    "iso": "MH",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "mauritania": {
+    "name": "Mauritania",
+    "iso": "MR",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "mauritius": {
+    "name": "Mauritius",
+    "iso": "MU",
+    "plug_types": [
+      "C",
+      "E",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "micronesia": {
+    "name": "Micronesia",
+    "iso": "FM",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "moldova": {
+    "name": "Moldova",
+    "iso": "MD",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "monaco": {
+    "name": "Monaco",
+    "iso": "MC",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "mongolia": {
+    "name": "Mongolia",
+    "iso": "MN",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "montenegro": {
+    "name": "Montenegro",
+    "iso": "ME",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "morocco": {
+    "name": "Morocco",
+    "iso": "MA",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "mozambique": {
+    "name": "Mozambique",
+    "iso": "MZ",
+    "plug_types": [
+      "C",
+      "F",
+      "M",
+      "N"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "myanmar": {
+    "name": "Myanmar",
+    "iso": "MM",
+    "plug_types": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "namibia": {
+    "name": "Namibia",
+    "iso": "NA",
+    "plug_types": [
+      "C",
+      "M",
+      "N"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "nauru": {
+    "name": "Nauru",
+    "iso": "NR",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "nepal": {
+    "name": "Nepal",
+    "iso": "NP",
+    "plug_types": [
+      "C",
+      "D",
+      "M"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "nicaragua": {
+    "name": "Nicaragua",
+    "iso": "NI",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "niger": {
+    "name": "Niger",
+    "iso": "NE",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "nigeria": {
+    "name": "Nigeria",
+    "iso": "NG",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "north-korea": {
+    "name": "North Korea",
+    "iso": "KP",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "north-macedonia": {
+    "name": "North Macedonia",
+    "iso": "MK",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "oman": {
+    "name": "Oman",
+    "iso": "OM",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "pakistan": {
+    "name": "Pakistan",
+    "iso": "PK",
+    "plug_types": [
+      "C",
+      "D"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "palau": {
+    "name": "Palau",
+    "iso": "PW",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "palestine": {
+    "name": "Palestine",
+    "iso": "PS",
+    "plug_types": [
+      "C",
+      "H"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "panama": {
+    "name": "Panama",
+    "iso": "PA",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "papua-new-guinea": {
+    "name": "Papua New Guinea",
+    "iso": "PG",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "paraguay": {
+    "name": "Paraguay",
+    "iso": "PY",
+    "plug_types": [
+      "A",
+      "B",
+      "C",
+      "N"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "peru": {
+    "name": "Peru",
+    "iso": "PE",
+    "plug_types": [
+      "A",
+      "B",
+      "C"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "puerto-rico": {
+    "name": "Puerto Rico",
+    "iso": "PR",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "qatar": {
+    "name": "Qatar",
+    "iso": "QA",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "romania": {
+    "name": "Romania",
+    "iso": "RO",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "russia": {
+    "name": "Russia",
+    "iso": "RU",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "rwanda": {
+    "name": "Rwanda",
+    "iso": "RW",
+    "plug_types": [
+      "C",
+      "E",
+      "F",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "saint-kitts-and-nevis": {
+    "name": "Saint Kitts and Nevis",
+    "iso": "KN",
+    "plug_types": [
+      "A",
+      "B",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "saint-lucia": {
+    "name": "Saint Lucia",
+    "iso": "LC",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "saint-vincent-and-the-grenadines": {
+    "name": "Saint Vincent and the Grenadines",
+    "iso": "VC",
+    "plug_types": [
+      "A",
+      "B",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "samoa": {
+    "name": "Samoa",
+    "iso": "WS",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "san-marino": {
+    "name": "San Marino",
+    "iso": "SM",
+    "plug_types": [
+      "C",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "sao-tome-and-principe": {
+    "name": "São Tomé and Príncipe",
+    "iso": "ST",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "saudi-arabia": {
+    "name": "Saudi Arabia",
+    "iso": "SA",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "senegal": {
+    "name": "Senegal",
+    "iso": "SN",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "serbia": {
+    "name": "Serbia",
+    "iso": "RS",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "seychelles": {
+    "name": "Seychelles",
+    "iso": "SC",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "sierra-leone": {
+    "name": "Sierra Leone",
+    "iso": "SL",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "slovakia": {
+    "name": "Slovakia",
+    "iso": "SK",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "slovenia": {
+    "name": "Slovenia",
+    "iso": "SI",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "solomon-islands": {
+    "name": "Solomon Islands",
+    "iso": "SB",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "somalia": {
+    "name": "Somalia",
+    "iso": "SO",
+    "plug_types": [
+      "C",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "south-sudan": {
+    "name": "South Sudan",
+    "iso": "SS",
+    "plug_types": [
+      "C",
+      "D",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "sri-lanka": {
+    "name": "Sri Lanka",
+    "iso": "LK",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "sudan": {
+    "name": "Sudan",
+    "iso": "SD",
+    "plug_types": [
+      "C",
+      "D",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "suriname": {
+    "name": "Suriname",
+    "iso": "SR",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "syria": {
+    "name": "Syria",
+    "iso": "SY",
+    "plug_types": [
+      "C",
+      "E",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "taiwan": {
+    "name": "Taiwan",
+    "iso": "TW",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "tajikistan": {
+    "name": "Tajikistan",
+    "iso": "TJ",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "tanzania": {
+    "name": "Tanzania",
+    "iso": "TZ",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "timor-leste": {
+    "name": "Timor-Leste",
+    "iso": "TL",
+    "plug_types": [
+      "C",
+      "E",
+      "F",
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "togo": {
+    "name": "Togo",
+    "iso": "TG",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "tonga": {
+    "name": "Tonga",
+    "iso": "TO",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "trinidad-and-tobago": {
+    "name": "Trinidad and Tobago",
+    "iso": "TT",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 115,
+    "frequency": 60
+  },
+  "tunisia": {
+    "name": "Tunisia",
+    "iso": "TN",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "turkmenistan": {
+    "name": "Turkmenistan",
+    "iso": "TM",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "tuvalu": {
+    "name": "Tuvalu",
+    "iso": "TV",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "uganda": {
+    "name": "Uganda",
+    "iso": "UG",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "ukraine": {
+    "name": "Ukraine",
+    "iso": "UA",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "united-arab-emirates": {
+    "name": "United Arab Emirates",
+    "iso": "AE",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "uruguay": {
+    "name": "Uruguay",
+    "iso": "UY",
+    "plug_types": [
+      "C",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "uzbekistan": {
+    "name": "Uzbekistan",
+    "iso": "UZ",
+    "plug_types": [
+      "C",
+      "F"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "vanuatu": {
+    "name": "Vanuatu",
+    "iso": "VU",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "vatican-city": {
+    "name": "Vatican City",
+    "iso": "VA",
+    "plug_types": [
+      "C",
+      "F",
+      "L"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "venezuela": {
+    "name": "Venezuela",
+    "iso": "VE",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "yemen": {
+    "name": "Yemen",
+    "iso": "YE",
+    "plug_types": [
+      "C",
+      "D",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "zambia": {
+    "name": "Zambia",
+    "iso": "ZM",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "zimbabwe": {
+    "name": "Zimbabwe",
+    "iso": "ZW",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "ivory-coast": {
+    "name": "Ivory Coast",
+    "iso": "CI",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "british-virgin-islands": {
+    "name": "British Virgin Islands",
+    "iso": "VG",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "aruba": {
+    "name": "Aruba",
+    "iso": "AW",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "bermuda": {
+    "name": "Bermuda",
+    "iso": "BM",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "cayman-islands": {
+    "name": "Cayman Islands",
+    "iso": "KY",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "curacao": {
+    "name": "Curaçao",
+    "iso": "CW",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 127,
+    "frequency": 50
+  },
+  "greenland": {
+    "name": "Greenland",
+    "iso": "GL",
+    "plug_types": [
+      "C",
+      "F",
+      "K"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guam": {
+    "name": "Guam",
+    "iso": "GU",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "gibraltar": {
+    "name": "Gibraltar",
+    "iso": "GI",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "isle-of-man": {
+    "name": "Isle of Man",
+    "iso": "IM",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "jersey": {
+    "name": "Jersey",
+    "iso": "JE",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guernsey": {
+    "name": "Guernsey",
+    "iso": "GG",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "american-samoa": {
+    "name": "American Samoa",
+    "iso": "AS",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "cook-islands": {
+    "name": "Cook Islands",
+    "iso": "CK",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "falkland-islands": {
+    "name": "Falkland Islands",
+    "iso": "FK",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 240,
+    "frequency": 50
+  },
+  "faroe-islands": {
+    "name": "Faroe Islands",
+    "iso": "FO",
+    "plug_types": [
+      "C",
+      "F",
+      "K"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "french-polynesia": {
+    "name": "French Polynesia",
+    "iso": "PF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "new-caledonia": {
+    "name": "New Caledonia",
+    "iso": "NC",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "niue": {
+    "name": "Niue",
+    "iso": "NU",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "reunion": {
+    "name": "Réunion",
+    "iso": "RE",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "saint-helena": {
+    "name": "Saint Helena",
+    "iso": "SH",
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "us-virgin-islands": {
+    "name": "U.S. Virgin Islands",
+    "iso": "VI",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "wallis-and-futuna": {
+    "name": "Wallis and Futuna",
+    "iso": "WF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "western-sahara": {
+    "name": "Western Sahara",
+    "iso": "EH",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "anguilla": {
+    "name": "Anguilla",
+    "iso": "AI",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "montserrat": {
+    "name": "Montserrat",
+    "iso": "MS",
+    "plug_types": [
+      "A",
+      "B",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "sint-maarten": {
+    "name": "Sint Maarten",
+    "iso": "SX",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 110,
+    "frequency": 60
+  },
+  "turks-and-caicos": {
+    "name": "Turks and Caicos Islands",
+    "iso": "TC",
+    "plug_types": [
+      "A",
+      "B"
+    ],
+    "voltage": 120,
+    "frequency": 60
+  },
+  "martinique": {
+    "name": "Martinique",
+    "iso": "MQ",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "guadeloupe": {
+    "name": "Guadeloupe",
+    "iso": "GP",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "mayotte": {
+    "name": "Mayotte",
+    "iso": "YT",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "saint-pierre-and-miquelon": {
+    "name": "Saint Pierre and Miquelon",
+    "iso": "PM",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "tokelau": {
+    "name": "Tokelau",
+    "iso": "TK",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "pitcairn-islands": {
+    "name": "Pitcairn Islands",
+    "iso": "PN",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "bonaire": {
+    "name": "Bonaire",
+    "iso": "BQ",
+    "plug_types": [
+      "A",
+      "B",
+      "C",
+      "F"
+    ],
+    "voltage": 127,
+    "frequency": 50
+  },
+  "saint-martin": {
+    "name": "Saint Martin",
+    "iso": "MF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "saint-barthelemy": {
+    "name": "Saint Barthélemy",
+    "iso": "BL",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 60
+  },
+  "french-guiana": {
+    "name": "French Guiana",
+    "iso": "GF",
+    "plug_types": [
+      "C",
+      "E"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "norfolk-island": {
+    "name": "Norfolk Island",
+    "iso": "NF",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "christmas-island": {
+    "name": "Christmas Island",
+    "iso": "CX",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "cocos-islands": {
+    "name": "Cocos (Keeling) Islands",
+    "iso": "CC",
+    "plug_types": [
+      "I"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "northern-cyprus": {
+    "name": "Northern Cyprus",
+    "iso": null,
+    "plug_types": [
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  },
+  "somaliland": {
+    "name": "Somaliland",
+    "iso": null,
+    "plug_types": [
+      "C",
+      "G"
+    ],
+    "voltage": 230,
+    "frequency": 50
+  }
+}
