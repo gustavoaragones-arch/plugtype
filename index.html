@@ -34,6 +34,7 @@
           <select id="from-country" name="from-country" required aria-label="Select your home country">
             <option value="">Select country…</option>
           </select>
+          <div id="detected-country" class="detected-country" aria-live="polite"></div>
         </div>
         <div class="field">
           <label for="to-country">I am going to</label>
@@ -42,6 +43,15 @@
           </select>
         </div>
       </form>
+      <h3 class="device-selector-heading">What device are you plugging in?</h3>
+      <div class="device-selector" role="group" aria-label="Device type">
+        <button type="button" class="device-btn active" data-device="phone">Phone</button>
+        <button type="button" class="device-btn" data-device="laptop">Laptop</button>
+        <button type="button" class="device-btn" data-device="hairdryer">Hair Dryer</button>
+        <button type="button" class="device-btn" data-device="cpap">CPAP Machine</button>
+        <button type="button" class="device-btn" data-device="camera">Camera</button>
+        <button type="button" class="device-btn" data-device="shaver">Electric Shaver</button>
+      </div>
     </section>
 
     <section class="result-section" id="result-section" aria-live="polite" aria-atomic="true" hidden>
@@ -59,7 +69,21 @@
           <p class="result-voltage-line" id="result-voltage-line"></p>
           <p class="result-voltage-explanation" id="result-voltage-explanation"></p>
         </div>
+        <div class="result-device-advice" id="result-device-advice">
+          <h3 class="result-device-advice-title">Device compatibility</h3>
+          <p class="result-device-advice-text" id="result-device-advice-text"></p>
+        </div>
         <p class="result-guide-link-wrap" id="result-guide-link-wrap"><a href="#" id="result-guide-link" class="cta-button cta-button-secondary">View Full Travel Adapter Guide</a></p>
+        <div class="device-label-checker">
+          <h3 class="device-label-checker-heading">Check your device label</h3>
+          <p class="device-label-checker-intro">Look at the label on your charger or device. Example: <strong>100–240V</strong></p>
+          <div class="device-label-checker-row">
+            <input type="text" id="device-voltage-input" placeholder="Example: 100-240" aria-label="Voltage range from device label">
+            <button type="button" id="check-device-voltage">Check Compatibility</button>
+          </div>
+          <p class="device-label-checker-hint">Examples: 100–240 &nbsp; 110–220 &nbsp; 230</p>
+          <div id="device-voltage-result" class="device-voltage-result" aria-live="polite"></div>
+        </div>
       </div>
     </section>
 

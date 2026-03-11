@@ -103,6 +103,47 @@ h2 {
   outline-offset: 2px;
 }
 
+.detected-country {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.device-selector-heading {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.device-selector {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.device-selector button {
+  padding: 8px 14px;
+  min-height: var(--touch-min);
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.device-selector button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.device-selector button.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
 .result-section {
   margin-bottom: 1.5rem;
 }
@@ -201,6 +242,24 @@ h2 {
   color: var(--muted);
 }
 
+.result-device-advice {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.result-device-advice-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.result-device-advice-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
 .result-guide-link-wrap {
   margin: 1rem 0 0;
 }
@@ -221,6 +280,86 @@ h2 {
 .result-guide-link-wrap .cta-button-secondary:hover {
   background: var(--primary);
   color: #fff;
+}
+
+.device-label-checker {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.device-label-checker-heading {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.device-label-checker-intro {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.device-label-checker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+#device-voltage-input {
+  padding: 8px 10px;
+  width: 160px;
+  min-width: 140px;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+#device-voltage-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+#check-device-voltage {
+  padding: 8px 14px;
+  min-height: var(--touch-min);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+#check-device-voltage:hover {
+  opacity: 0.9;
+}
+
+.device-label-checker-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.device-voltage-result {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.device-voltage-result--yes {
+  color: var(--success);
+}
+
+.device-voltage-result--no {
+  color: var(--warning);
+}
+
+.device-voltage-result--neutral {
+  color: var(--muted);
 }
 
 .result-warning {
