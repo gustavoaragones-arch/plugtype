@@ -127,8 +127,50 @@ h2 {
   color: var(--muted);
 }
 
-.result-plug-types p {
-  margin: 0.25rem 0;
+.result-plug-label {
+  margin: 0.5rem 0 0;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.result-plug-label:first-child {
+  margin-top: 0;
+}
+
+.plug-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+.plug-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  min-width: 42px;
+}
+
+.plug-icon img {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+.result-shared {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.result-shared-yes {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.result-shared-no {
+  color: var(--muted);
 }
 
 .result-compat {
@@ -145,8 +187,40 @@ h2 {
 }
 
 .result-voltage {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   font-size: 0.9375rem;
+}
+
+.result-voltage-line {
+  margin: 0 0 0.25rem;
+  font-weight: 500;
+}
+
+.result-voltage-explanation {
+  margin: 0;
+  color: var(--muted);
+}
+
+.result-guide-link-wrap {
+  margin: 1rem 0 0;
+}
+
+.result-guide-link-wrap .cta-button-secondary {
+  display: inline-block;
+  min-height: var(--touch-min);
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.result-guide-link-wrap .cta-button-secondary:hover {
+  background: var(--primary);
+  color: #fff;
 }
 
 .result-warning {
