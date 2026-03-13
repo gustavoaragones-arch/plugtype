@@ -73,6 +73,7 @@ function main() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(metaDesc)}">
+  <link rel="canonical" href="https://plugtype.world/pages/plug-types/type-${letter}.html">
   <link rel="stylesheet" href="../../css/styles.css">
   <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',

@@ -71,6 +71,7 @@ function main() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Global Plug Compatibility Guides by Country</title>
   <meta name="description" content="Browse all international plug adapter compatibility guides. See if your plug works in another country and whether you need a voltage converter.">
+  <link rel="canonical" href="https://plugtype.world/compatibility/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>

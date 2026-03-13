@@ -12,6 +12,7 @@ const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 const PLUG_TYPES_PATH = path.join(PROJECT_ROOT, 'data', 'plug-types.json');
 const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'countries');
 const BASE_URL = 'https://plugtype.world';
+const BASE = BASE_URL;
 
 function loadJSON(filePath) {
   const raw = fs.readFileSync(filePath, 'utf8');
@@ -62,10 +63,12 @@ function renderCountryPage(countryKey, country, allKeys, countries, plugTypes) {
     'utf8'
   );
 
+  const canonical = BASE + '/pages/countries/' + countryKey + '.html';
   const replacements = {
     '{{TITLE}}': title,
     '{{META_DESCRIPTION}}': metaDesc,
     '{{ARTICLE_JSON}}': articleJson,
+    '{{CANONICAL}}': canonical,
     '{{COUNTRY_NAME}}': name,
     '{{PLUG_TYPES_LINE}}': plugTypesLine || '—',
     '{{VOLTAGE}}': voltage,

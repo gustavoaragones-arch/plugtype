@@ -71,6 +71,7 @@ function main() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Where Can You Use a ${escapeHtml(originName)} Plug? Compatibility Guides</title>
   <meta name="description" content="Browse plug compatibility guides from ${escapeHtml(originName)} to every country. See if you need an adapter or voltage converter.">
+  <link rel="canonical" href="https://plugtype.world/compatibility/${originKey}/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>

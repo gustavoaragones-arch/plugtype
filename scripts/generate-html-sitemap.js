@@ -87,6 +87,7 @@ function main() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plug Type World HTML Sitemap</title>
   <meta name="description" content="Browse all pages on Plug Type World including plug compatibility guides, country plug types, and travel adapter information.">
+  <link rel="canonical" href="https://plugtype.world/sitemap/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>

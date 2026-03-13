@@ -12,6 +12,7 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'templates', 'compatibility-template.html');
 const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'compatibility');
+const BASE = 'https://plugtype.world';
 
 const ORIGIN_KEYS = [
   'united-states',
@@ -132,10 +133,12 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     .join(' · ');
 
   const breadcrumb = '<a href="/">Home</a> \u2192 <a href="/compatibility/">Compatibility Guides</a> \u2192 <a href="/compatibility/' + originKey + '/">' + origin.name + '</a> \u2192 ' + dest.name;
+  const canonical = BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html';
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   const replacements = {
     '{{TITLE}}': title,
     '{{META_DESCRIPTION}}': metaDesc,
+    '{{CANONICAL}}': canonical,
     '{{H1}}': h1,
     '{{ARTICLE_JSON}}': articleJson,
     '{{BREADCRUMB}}': breadcrumb,
