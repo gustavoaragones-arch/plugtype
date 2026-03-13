@@ -131,12 +131,14 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     .map(r => `<a href="${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`)
     .join(' · ');
 
+  const breadcrumb = '<a href="/">Home</a> \u2192 <a href="/compatibility/">Compatibility Guides</a> \u2192 <a href="/compatibility/' + originKey + '/">' + origin.name + '</a> \u2192 ' + dest.name;
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   const replacements = {
     '{{TITLE}}': title,
     '{{META_DESCRIPTION}}': metaDesc,
     '{{H1}}': h1,
     '{{ARTICLE_JSON}}': articleJson,
+    '{{BREADCRUMB}}': breadcrumb,
     '{{SUMMARY_TEXT}}': summaryText,
     '{{ORIGIN_NAME}}': origin.name,
     '{{DEST_NAME}}': dest.name,

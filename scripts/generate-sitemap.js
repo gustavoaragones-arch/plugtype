@@ -40,6 +40,19 @@ xml += '  </url>\n';
 xml += '  <url>\n';
 xml += `    <loc>${BASE}/terms.html</loc>\n`;
 xml += '  </url>\n';
+xml += '  <url>\n';
+xml += `    <loc>${BASE}/compatibility/</loc>\n`;
+xml += '  </url>\n';
+xml += '  <url>\n';
+xml += `    <loc>${BASE}/sitemap/</loc>\n`;
+xml += '  </url>\n';
+
+for (const originKey of COMPAT_ORIGIN_KEYS) {
+  if (!countries[originKey]) continue;
+  xml += '  <url>\n';
+  xml += `    <loc>${BASE}/compatibility/${originKey}/</loc>\n`;
+  xml += '  </url>\n';
+}
 
 for (const key of countryKeys) {
   xml += '  <url>\n';
@@ -68,10 +81,14 @@ for (const originKey of COMPAT_ORIGIN_KEYS) {
 xml += '</urlset>\n';
 
 fs.writeFileSync(SITEMAP_PATH, xml, 'utf8');
-const total = 1 + 4 + countryKeys.length + plugLetters.length + compatCount;
+const countryHubCount = COMPAT_ORIGIN_KEYS.filter(ok => countries[ok]).length;
+const total = 1 + 4 + 1 + 1 + countryHubCount + countryKeys.length + plugLetters.length + compatCount;
 console.log('Wrote sitemap.xml with', total, 'URLs.');
 console.log('  Homepage: 1');
 console.log('  Entity pages: 4 (about, contact, privacy, terms)');
+console.log('  Compatibility hub: 1');
+console.log('  HTML sitemap: 1');
+console.log('  Country compatibility hubs:', countryHubCount);
 console.log('  Country pages:', countryKeys.length);
 console.log('  Plug type pages:', plugLetters.length);
 console.log('  Compatibility pages:', compatCount);

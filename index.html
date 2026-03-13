@@ -29,18 +29,20 @@
     <section class="tool-section" aria-labelledby="tool-heading">
       <h2 id="tool-heading">Compatibility Tool</h2>
       <form class="compat-form" id="compat-form">
-        <div class="field">
-          <label for="from-country">I am from</label>
-          <select id="from-country" name="from-country" required aria-label="Select your home country">
-            <option value="">Select country…</option>
-          </select>
-          <div id="detected-country" class="detected-country" aria-live="polite"></div>
-        </div>
-        <div class="field">
-          <label for="to-country">I am going to</label>
-          <select id="to-country" name="to-country" required aria-label="Select destination country">
-            <option value="">Select country…</option>
-          </select>
+        <div class="country-selectors">
+          <div class="country-field">
+            <label for="from-country">I am from</label>
+            <select id="from-country" name="from-country" required aria-label="Select your home country">
+              <option value="">Select country…</option>
+            </select>
+            <div id="detected-country" class="detected-country" aria-live="polite"></div>
+          </div>
+          <div class="country-field">
+            <label for="to-country">I am going to</label>
+            <select id="to-country" name="to-country" required aria-label="Select destination country">
+              <option value="">Select country…</option>
+            </select>
+          </div>
         </div>
       </form>
       <h3 class="device-selector-heading">What device are you plugging in?</h3>
@@ -73,7 +75,7 @@
           <h3 class="result-device-advice-title">Device compatibility</h3>
           <p class="result-device-advice-text" id="result-device-advice-text"></p>
         </div>
-        <p class="result-guide-link-wrap" id="result-guide-link-wrap"><a href="#" id="result-guide-link" class="cta-button cta-button-secondary">View Full Travel Adapter Guide</a></p>
+        <p class="result-guide-link-wrap" id="result-guide-link-wrap"><a href="#" id="result-guide-link" class="guide-button">View Full Travel Adapter Guide</a></p>
         <div class="device-label-checker">
           <h3 class="device-label-checker-heading">Check your device label</h3>
           <p class="device-label-checker-intro">Look at the label on your charger or device. Example: <strong>100–240V</strong></p>
@@ -103,6 +105,12 @@
       </ul>
     </section>
 
+    <section class="hub-cta-section">
+      <h2 id="explore-compatibility">Explore Travel Plug Compatibility Guides</h2>
+      <p>Browse all country-to-country plug compatibility guides.</p>
+      <p><a href="/compatibility/" class="cta-button">View All Compatibility Guides</a></p>
+    </section>
+
     <section class="info-section">
       <h2>How it works</h2>
       <p>Choose your home country and your destination. We show plug types, voltage, and whether you need an adapter or voltage converter.</p>
@@ -127,7 +135,7 @@
   </main>
 
   <footer>
-    <p><a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    <p><a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="sitemap/">HTML Sitemap</a></p>
     <p>Plug Type World is a product of Albor Digital LLC.</p>
   </footer>
 
