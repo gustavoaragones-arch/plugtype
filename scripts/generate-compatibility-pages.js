@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Generate static compatibility pages (origin → destination).
- * Origin: 20 fixed countries. Destination: all countries in dataset.
+ * All country pairs: every origin × every destination (excluding same country).
  * Run from project root: node scripts/generate-compatibility-pages.js
  */
 
@@ -13,29 +13,6 @@ const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'templates', 'compatibility-template.html');
 const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'compatibility');
 const BASE = 'https://plugtype.world';
-
-const ORIGIN_KEYS = [
-  'united-states',
-  'canada',
-  'united-kingdom',
-  'australia',
-  'germany',
-  'france',
-  'spain',
-  'italy',
-  'brazil',
-  'japan',
-  'india',
-  'netherlands',
-  'sweden',
-  'switzerland',
-  'singapore',
-  'south-korea',
-  'mexico',
-  'thailand',
-  'philippines',
-  'south-africa'
-];
 
 function loadJSON(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -112,9 +89,9 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     voltageWarningHtml = '<p>Voltage difference is within a range many devices tolerate; check your appliance label.</p>';
   }
 
-  const title = `Can You Use a ${origin.name} Plug in ${dest.name}? Adapter & Voltage Guide`;
-  const metaDesc = `Check if your ${origin.name} plug works in ${dest.name}. Compare plug types, voltage, and whether you need a travel adapter.`;
-  const h1 = `Can You Use a ${origin.name} Plug in ${dest.name}?`;
+  const title = `${origin.name} to ${dest.name} Plug Adapter & Voltage Guide`;
+  const metaDesc = `Check plug compatibility from ${origin.name} to ${dest.name}. See if you need a travel adapter or voltage converter.`;
+  const h1 = `${origin.name} → ${dest.name} Plug Adapter Guide`;
 
   const articleJson = JSON.stringify({
     '@context': 'https://schema.org',
@@ -170,29 +147,27 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
 
 function main() {
   const countries = loadJSON(COUNTRIES_PATH);
-  const allKeys = Object.keys(countries).sort();
-  const destKeys = allKeys;
+  const allKeys = Object.keys(countries).sort((a, b) =>
+    (countries[a].name || '').localeCompare(countries[b].name || '')
+  );
 
   if (!fs.existsSync(OUT_DIR)) {
     fs.mkdirSync(OUT_DIR, { recursive: true });
   }
 
   let count = 0;
-  for (const originKey of ORIGIN_KEYS) {
-    if (!countries[originKey]) {
-      console.warn('Origin not in dataset:', originKey);
-      continue;
-    }
-    for (const destKey of destKeys) {
+  for (const originKey of allKeys) {
+    if (!countries[originKey]) continue;
+    for (const destKey of allKeys) {
       if (originKey === destKey) continue;
       if (!countries[destKey]) continue;
-      const html = buildPage(originKey, destKey, countries, destKeys);
+      const html = buildPage(originKey, destKey, countries, allKeys);
       if (!html) continue;
       const filename = `${originKey}-to-${destKey}.html`;
       const outPath = path.join(OUT_DIR, filename);
       fs.writeFileSync(outPath, html, 'utf8');
       count++;
-      if (count % 500 === 0) console.log('Generated', count, 'pages...');
+      if (count % 5000 === 0) console.log('Generated', count, 'pages...');
     }
   }
 

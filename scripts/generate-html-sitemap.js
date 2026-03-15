@@ -14,12 +14,6 @@ const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 
 const plugLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'];
 
-const COMPAT_ORIGIN_KEYS = [
-  'united-states', 'canada', 'united-kingdom', 'australia', 'germany', 'france', 'spain', 'italy',
-  'brazil', 'japan', 'india', 'netherlands', 'sweden', 'switzerland', 'singapore', 'south-korea',
-  'mexico', 'thailand', 'philippines', 'south-africa'
-];
-
 // Popular compatibility guides (origin, dest) — ~25 links
 const POPULAR_COMPAT = [
   ['united-states', 'italy'], ['united-states', 'france'], ['united-states', 'japan'], ['united-states', 'united-kingdom'], ['united-states', 'mexico'],
@@ -65,11 +59,8 @@ function main() {
   }).join('\n');
 
   // Section 4: Compatibility Country Hubs (alphabetically by country name)
-  const hubOriginKeys = [...COMPAT_ORIGIN_KEYS].sort((a, b) =>
-    (countries[a] && countries[b] ? countries[a].name.localeCompare(countries[b].name) : 0)
-  );
-  const hubLinks = hubOriginKeys.filter(k => countries[k]).map(key => {
-    const name = countries[key].name;
+  const hubLinks = countryKeys.map(key => {
+    const name = countries[key] ? countries[key].name : key;
     return `<li><a href="/compatibility/${key}/">${escapeHtml(name)} Compatibility Guides</a></li>`;
   }).join('\n');
 

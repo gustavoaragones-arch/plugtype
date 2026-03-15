@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/core-pages.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/compatibility-hubs.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/countries.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/plug-types.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/compatibility-1.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/compatibility-2.xml</loc>
+  </sitemap>
+</sitemapindex>
