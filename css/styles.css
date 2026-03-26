@@ -189,6 +189,26 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+#result {
+  margin-top: 20px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+#result .result-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+#world-map {
+  margin-top: 40px;
+}
+
 .result-card {
   padding: 1.25rem;
   background: var(--card-bg);
@@ -666,6 +686,244 @@ footer p:last-child {
 
 .sitemap-section li {
   margin-bottom: 6px;
+}
+
+/* Interactive world plug map */
+.world-map-section {
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+  max-width: 56rem;
+}
+
+.world-map-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.world-map-section .world-map-intro {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.world-map-wrap {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+}
+
+.world-map-zoom-controls {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.map-zoom-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-zoom-btn:hover:not(:disabled) {
+  background: var(--bg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.map-zoom-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+#world-map-container {
+  width: 100%;
+  line-height: 0;
+  max-height: min(70vh, 520px);
+  overflow: hidden;
+  position: relative;
+  touch-action: manipulation;
+}
+
+#world-map-container.world-map-container--zoomed {
+  touch-action: none;
+  cursor: grab;
+}
+
+#world-map-container.world-map-container--zoomed.is-dragging-map {
+  cursor: grabbing;
+}
+
+.world-map-zoom-layer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: width 0.2s ease, min-width 0.2s ease, transform 0.08s ease-out;
+  display: block;
+  will-change: transform;
+}
+
+#world-map-container.is-dragging-map .world-map-zoom-layer {
+  transition: none;
+}
+
+#world-map-container .world-map-svg {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  display: block;
+}
+
+#world-map-container .world-map-svg path {
+  fill: #e6e6e6;
+  stroke: #ffffff;
+  stroke-width: 0.5;
+  cursor: pointer;
+  transition: fill 0.12s ease;
+}
+
+#world-map-container .world-map-svg path:hover,
+#world-map-container .world-map-svg path:focus {
+  fill: #4f8cff;
+}
+
+#world-map-container .world-map-svg path:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+#map-tooltip {
+  position: fixed;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  pointer-events: none;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 220px;
+}
+
+#map-tooltip strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.world-map-fallback {
+  margin: 0;
+  padding: 1rem;
+  color: var(--muted);
+}
+
+.tool-context-links {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.tool-context-links a {
+  margin-right: 0.75rem;
+}
+
+.why-this-matters,
+.why-different {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8f9fb;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.why-this-matters h3,
+.why-different h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.micro-education {
+  margin-top: 12px;
+  padding: 12px;
+  background: #fff3cd;
+  border-radius: 6px;
+}
+
+.adapter-vs-converter,
+.adapter-converter-info {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f4f6f8;
+  border-radius: 8px;
+}
+
+.adapter-vs-converter h3,
+.adapter-converter-info h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 520px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.warning-box {
+  margin-top: 12px;
+  padding: 12px;
+  background: #ffe8e8;
+  border-radius: 6px;
+}
+
+.device-hint {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.tool-authority-links {
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.authority-learn-more {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.authority-page .page-content {
+  max-width: 42rem;
+}
+
+.authority-page .page-content h2 {
+  margin-top: 1.75rem;
+  font-size: 1.15rem;
 }
 
 @media (min-width: 480px) {

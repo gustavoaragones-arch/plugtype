@@ -1,0 +1,31 @@
+{
+  "name": "plugtype",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:map": "node scripts/build-world-map-svg.js",
+    "serve": "serve . -l 4173",
+    "serve:alt": "serve . -l 8787",
+    "serve:python": "python3 -m http.server 4173 --bind 127.0.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavoaragones-arch/plugtype.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gustavoaragones-arch/plugtype/issues"
+  },
+  "homepage": "https://github.com/gustavoaragones-arch/plugtype#readme",
+  "devDependencies": {
+    "d3-geo": "^3.1.1",
+    "serve": "^14.2.4",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  }
+}

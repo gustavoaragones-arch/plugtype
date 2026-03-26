@@ -47,7 +47,9 @@ function main() {
     BASE + '/compatibility/',
     BASE + '/countries/',
     BASE + '/plug-types/',
-    BASE + '/sitemap/'
+    BASE + '/sitemap/',
+    BASE + '/why-plug-types-differ/',
+    BASE + '/adapter-vs-converter/'
   ];
   const corePath = path.join(SITEMAPS_DIR, 'core-pages.xml');
   writeUrlset(corePath, coreUrls);

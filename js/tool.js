@@ -4,7 +4,7 @@
   var countries = {};
   var fromSelect = document.getElementById('from-country');
   var toSelect = document.getElementById('to-country');
-  var resultSection = document.getElementById('result-section');
+  var resultSection = document.getElementById('result');
   var resultTitle = document.getElementById('result-title');
   var resultPlugFromLabel = document.getElementById('result-plug-from-label');
   var resultPlugFromIcons = document.getElementById('result-plug-from-icons');
@@ -17,6 +17,7 @@
   var resultGuideLinkWrap = document.getElementById('result-guide-link-wrap');
   var resultGuideLink = document.getElementById('result-guide-link');
   var resultDeviceAdviceText = document.getElementById('result-device-advice-text');
+  var deviceHint = document.getElementById('device-hint');
 
   var selectedDevice = 'phone';
 
@@ -201,6 +202,7 @@
     var fromKey = fromSelect.value;
     var toKey = toSelect.value;
     if (!fromKey || !toKey) {
+      if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
       return;
     }
@@ -208,6 +210,7 @@
     var from = countries[fromKey];
     var to = countries[toKey];
     if (!from || !to) {
+      if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
       return;
     }
@@ -238,6 +241,23 @@
     resultVoltageLine.textContent = 'Voltage — ' + from.name + ' ' + (from.voltage != null ? from.voltage + 'V' : '—') + ' \u2014 ' + to.name + ' ' + (to.voltage != null ? to.voltage + 'V' : '—');
     resultVoltageExplanation.textContent = voltageMsg;
 
+    if (deviceHint) {
+      var va = parseFloat(from.voltage);
+      var vb = parseFloat(to.voltage);
+      if (!Number.isFinite(va) || !Number.isFinite(vb)) {
+        deviceHint.hidden = true;
+      } else {
+        var vmax = Math.max(va, vb);
+        var voltageRatio = vmax ? Math.abs(va - vb) / vmax : 0;
+        if (voltageRatio <= 0.2) {
+          deviceHint.innerHTML = '\u2705 You likely only need a plug adapter (if socket shapes differ). Voltage is close between these countries.';
+        } else {
+          deviceHint.innerHTML = '\u26a0\ufe0f You may need a voltage converter for some devices, especially high-power ones that are not dual-voltage. Check each device label.';
+        }
+        deviceHint.hidden = false;
+      }
+    }
+
     if (resultDeviceAdviceText) {
       resultDeviceAdviceText.textContent = deviceAdviceSummary(selectedDevice, from.voltage, to.voltage);
     }
@@ -253,6 +273,14 @@
     }
 
     resultSection.hidden = false;
+    requestAnimationFrame(function () {
+      if (!resultSection) return;
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      resultSection.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start'
+      });
+    });
   }
 
   function init() {

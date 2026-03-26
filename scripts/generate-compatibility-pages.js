@@ -37,6 +37,54 @@ function voltageDiffPercent(v1, v2) {
   return ((max - min) / min) * 100;
 }
 
+/** Relative voltage difference vs max (0–1); matches tool.js 20% threshold when <= 0.20 */
+function voltageRelativeRatio(v1, v2) {
+  const a = Number(v1);
+  const b = Number(v2);
+  if (!a || !b) return 0;
+  return Math.abs(a - b) / Math.max(a, b);
+}
+
+function generateShortExplanation(origin, dest) {
+  const originName = escapeHtml(origin.name);
+  const destName = escapeHtml(dest.name);
+  const ov = origin.voltage != null ? escapeHtml(String(origin.voltage)) : '—';
+  const dv = dest.voltage != null ? escapeHtml(String(dest.voltage)) : '—';
+  return (
+    '<section class="why-different">\n' +
+    '  <h2>Why is this different?</h2>\n' +
+    '  <p>\n' +
+    '    ' + originName + ' uses ' + ov + 'V electricity, while ' + destName + ' uses ' + dv + 'V.\n' +
+    '    These electrical systems developed independently, which is why both voltage and plug types differ.\n' +
+    '  </p>\n' +
+    '</section>\n'
+  );
+}
+
+function generateAdapterConverterBlock(voltageRatio) {
+  const low = voltageRatio <= 0.2;
+  const recommendation = low
+    ? 'In most cases, you will only need a plug adapter for this route.'
+    : 'Because the voltage difference is significant, some devices may require a voltage converter.';
+  return (
+    '<section class="adapter-converter-info">\n' +
+    '  <h2>Plug adapter vs voltage converter</h2>\n' +
+    '  <p><strong>Plug adapter:</strong> Allows your plug to fit into a different socket. It does not change voltage.</p>\n' +
+    '  <p><strong>Voltage converter:</strong> Changes the electrical voltage to match your device requirements.</p>\n' +
+    '  <p>' + recommendation + '</p>\n' +
+    '</section>\n'
+  );
+}
+
+function generateAdapterWarningBox() {
+  return (
+    '<div class="warning-box">\n' +
+    '  <p><strong>Important:</strong> Plug adapters do not convert voltage.</p>\n' +
+    '  <p>Always check your device label (e.g. 100–240V).</p>\n' +
+    '</div>\n'
+  );
+}
+
 function pickRelated(originKey, destKey, allDestKeys, countries, n) {
   const out = [];
   const seen = new Set([originKey, destKey]);
@@ -109,6 +157,14 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     .map(r => `<a href="${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`)
     .join(' · ');
 
+  const voltageRatio = voltageRelativeRatio(origin.voltage, dest.voltage);
+  const contextualAuthority =
+    generateShortExplanation(origin, dest) +
+    '<p class="authority-learn-more">Learn more: <a href="/why-plug-types-differ/">Why plug types differ worldwide</a></p>\n' +
+    generateAdapterConverterBlock(voltageRatio) +
+    generateAdapterWarningBox() +
+    '<p class="authority-learn-more">Learn more: <a href="/adapter-vs-converter/">Adapter vs Converter explained</a></p>\n';
+
   const breadcrumb = '<a href="/">Home</a> \u2192 <a href="/compatibility/">Compatibility Guides</a> \u2192 <a href="/compatibility/' + originKey + '/">' + origin.name + '</a> \u2192 ' + dest.name;
   const canonical = BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html';
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
@@ -130,6 +186,7 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     '{{ORIGIN_FREQ}}': origin.frequency ?? '—',
     '{{DEST_FREQ}}': dest.frequency ?? '—',
     '{{VOLTAGE_WARNING}}': voltageWarningHtml,
+    '{{CONTEXTUAL_AUTHORITY}}': contextualAuthority,
     '{{HOME_LINK}}': '../../index.html',
     '{{CSS_PATH}}': '../../css/styles.css',
     '{{ROOT}}': '../../',

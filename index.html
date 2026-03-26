@@ -55,9 +55,14 @@
         <button type="button" class="device-btn" data-device="camera">Camera</button>
         <button type="button" class="device-btn" data-device="shaver">Electric Shaver</button>
       </div>
+      <p class="tool-context-links">
+        <a href="/why-plug-types-differ/">Why plug types differ worldwide</a>
+        ·
+        <a href="/adapter-vs-converter/">Adapter vs converter explained</a>
+      </p>
     </section>
 
-    <section class="result-section" id="result-section" aria-live="polite" aria-atomic="true" hidden>
+    <section class="result-section" id="result" aria-live="polite" aria-atomic="true" hidden>
       <div class="result-card" id="result-card">
         <h2 class="result-title" id="result-title"></h2>
         <div class="result-plug-types">
@@ -77,6 +82,43 @@
           <p class="result-device-advice-text" id="result-device-advice-text"></p>
         </div>
         <p class="result-guide-link-wrap" id="result-guide-link-wrap"><a href="#" id="result-guide-link" class="guide-button">View Full Travel Adapter Guide</a></p>
+
+        <section class="adapter-vs-converter" aria-labelledby="adapter-converter-heading">
+          <h3 id="adapter-converter-heading">Adapter vs voltage converter</h3>
+          <div class="comparison-grid">
+            <div>
+              <strong>Plug adapter</strong>
+              <p>Changes the plug shape so it fits into the socket.</p>
+              <p>Does <em>not</em> change voltage.</p>
+            </div>
+            <div>
+              <strong>Voltage converter</strong>
+              <p>Changes the electrical voltage.</p>
+              <p>Used when voltage differs significantly.</p>
+            </div>
+          </div>
+        </section>
+
+        <p id="device-hint" class="device-hint" role="status" aria-live="polite" hidden></p>
+
+        <section class="why-this-matters">
+          <h3>Why plug types differ worldwide</h3>
+          <p>Electrical systems were developed independently by each country. This is why plug shapes and voltage standards vary between locations.</p>
+          <p>Even if a plug fits, voltage differences can affect how your device works.</p>
+        </section>
+
+        <div class="micro-education">
+          <p>Plug adapters do <strong>not</strong> change voltage.</p>
+          <p>Most phone and laptop chargers support 100–240V and work worldwide—check your device label.</p>
+        </div>
+
+        <p class="tool-authority-links">
+          Learn more:
+          <a href="/why-plug-types-differ/">Why plug types differ worldwide</a>
+          ·
+          <a href="/adapter-vs-converter/">Adapter vs Converter explained</a>
+        </p>
+
         <div class="device-label-checker">
           <h3 class="device-label-checker-heading">Check your device label</h3>
           <p class="device-label-checker-intro">Look at the label on your charger or device. Example: <strong>100–240V</strong></p>
@@ -86,6 +128,21 @@
           </div>
           <p class="device-label-checker-hint">Examples: 100–240 &nbsp; 110–220 &nbsp; 230</p>
           <div id="device-voltage-result" class="device-voltage-result" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="world-map-section" id="world-map" aria-labelledby="world-map-heading">
+      <h2 id="world-map-heading">Explore plug types around the world</h2>
+      <p class="world-map-intro">Hover over a country to see plug types and voltage. Click to open the full country guide. Zoom in, then click and drag to pan the map.</p>
+      <div class="world-map-wrap">
+        <div class="world-map-zoom-controls" role="group" aria-label="Map zoom">
+          <button type="button" id="map-zoom-in" class="map-zoom-btn" title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" id="map-zoom-out" class="map-zoom-btn" title="Zoom out" aria-label="Zoom out">−</button>
+        </div>
+        <div id="map-tooltip" aria-hidden="true"></div>
+        <div id="world-map-container">
+          <div class="world-map-zoom-layer" id="world-map-zoom-layer"></div>
         </div>
       </div>
     </section>
@@ -141,5 +198,6 @@
   </footer>
 
   <script src="js/tool.js"></script>
+  <script src="js/map.js"></script>
 </body>
 </html>

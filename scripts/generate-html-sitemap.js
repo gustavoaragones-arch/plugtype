@@ -44,6 +44,8 @@ function main() {
     <li><a href="/compatibility/">Compatibility Guides</a></li>
     <li><a href="/plug-types/">Plug Types</a></li>
     <li><a href="/countries/">Country Plug Standards</a></li>
+    <li><a href="/why-plug-types-differ/">Why Plug Types Differ</a></li>
+    <li><a href="/adapter-vs-converter/">Adapter vs Converter</a></li>
   `.trim().replace(/^/gm, '    ');
 
   // Section 2: Country Pages (alphabetically by name)
