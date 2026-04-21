@@ -1,5 +1,4 @@
 # Serve sitemaps and robots as static files (must appear before any SPA catch-all)
 /sitemaps/* /sitemaps/:splat 200
 /robots.txt /robots.txt 200
-# Client-rendered compatibility pairs (single path segment after /compatibility/)
-/compatibility/:pair /index.html 200
+# /compatibility/{slug} is served by Pages Functions (functions/compatibility/[slug].js)

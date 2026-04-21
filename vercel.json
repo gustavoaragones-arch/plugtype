@@ -1,11 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    {
-      "source": "/compatibility/:pair",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/sitemaps/(.*\\.xml)",

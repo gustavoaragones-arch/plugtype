@@ -1,11 +1,6 @@
 (function () {
   'use strict';
 
-  var SITE_ORIGIN = 'https://plugtype.world';
-  var SEO_HOME_TITLE = 'Plug Type World – Global Power Plug & Voltage Compatibility Tool';
-  var SEO_HOME_DESC =
-    'Find out if your plug works in another country. Compare plug types, voltage, and frequency instantly with our global compatibility tool.';
-
   var countries = {};
   var fromSelect = document.getElementById('from-country');
   var toSelect = document.getElementById('to-country');
@@ -76,8 +71,12 @@
 
   function detectVisitorCountry() {
     return fetch('https://ipapi.co/json/')
-      .then(function (response) { return response.json(); })
-      .then(function (data) { return data.country_name || null; })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        return data.country_name || null;
+      })
       .catch(function () {
         console.log('Geolocation failed');
         return null;
@@ -115,26 +114,13 @@
 
   function findSharedPlugs(a, b) {
     if (!a || !b) return [];
-    return a.filter(function (type) { return b.indexOf(type) !== -1; });
+    return a.filter(function (type) {
+      return b.indexOf(type) !== -1;
+    });
   }
 
   function hasSharedPlugType(typesA, typesB) {
     return findSharedPlugs(typesA || [], typesB || []).length > 0;
-  }
-
-  function voltageMessage(v1, v2) {
-    var a = Number(v1, 10);
-    var b = Number(v2, 10);
-    if (a === b) {
-      return 'Voltage is the same. Your devices should work normally.';
-    }
-    var max = Math.max(a, b);
-    if (max === 0) return '';
-    var diff = Math.abs(a - b) / max;
-    if (diff <= 0.20) {
-      return 'Voltage difference is small (less than about 20%). Most modern electronics will work safely, but charging times may vary.';
-    }
-    return 'Voltage difference is significant. A voltage converter may be required for devices that are not dual-voltage.';
   }
 
   function deviceVoltageAdvice(v1, v2, device) {
@@ -145,7 +131,7 @@
     var max = Math.max(a, b);
     if (max === 0) return '';
     var diff = Math.abs(a - b) / max;
-    if (diff <= 0.20) {
+    if (diff <= 0.2) {
       return 'Voltage difference is small. Most electronics will work safely.';
     }
     if (profile.dualVoltage === true) {
@@ -164,7 +150,7 @@
     var b = Number(v2, 10);
     var max = Math.max(a, b);
     var diff = max ? Math.abs(a - b) / max : 0;
-    var largeDiff = diff > 0.20;
+    var largeDiff = diff > 0.2;
     if (profile.dualVoltage === true) {
       return 'Device selected: ' + label + '. Phones and similar electronics almost always support 100–240V, so it should work safely.';
     }
@@ -192,7 +178,11 @@
     }
     var min = parseInt(numbers[0], 10);
     var max = parseInt(numbers[1], 10);
-    if (min > max) { var t = min; min = max; max = t; }
+    if (min > max) {
+      var t = min;
+      min = max;
+      max = t;
+    }
     return { min: min, max: max };
   }
 
@@ -203,109 +193,12 @@
     return false;
   }
 
-  function parseCompatPairFromPath(pathname) {
-    var p = pathname.replace(/\/$/, '');
-    var m = p.match(/^\/compatibility\/([a-z0-9-]+)-to-([a-z0-9-]+)$/i);
-    if (!m) return null;
-    return { origin: m[1].toLowerCase(), dest: m[2].toLowerCase() };
-  }
-
-  function resetSeoHome() {
-    document.title = SEO_HOME_TITLE;
-    var meta = document.getElementById('meta-description');
-    if (meta) meta.setAttribute('content', SEO_HOME_DESC);
-    var can = document.getElementById('canonical-link');
-    if (can) can.setAttribute('href', SITE_ORIGIN + '/');
-  }
-
-  function setSeoCompat(fromKey, toKey) {
-    var from = countries[fromKey];
-    var to = countries[toKey];
-    if (!from || !to) return;
-    var title = from.name + ' to ' + to.name + ' Plug Adapter & Voltage Guide | Plug Type World';
-    var desc =
-      'Check plug compatibility from ' +
-      from.name +
-      ' to ' +
-      to.name +
-      '. See plug types, voltage, and whether you need a travel adapter or voltage converter.';
-    document.title = title;
-    var meta = document.getElementById('meta-description');
-    if (meta) meta.setAttribute('content', desc);
-    var can = document.getElementById('canonical-link');
-    if (can) {
-      can.setAttribute('href', SITE_ORIGIN + '/compatibility/' + fromKey + '-to-' + toKey);
-    }
-  }
-
-  function syncCompatUrlAndSeo() {
-    var fromKey = fromSelect.value;
-    var toKey = toSelect.value;
-    if (!fromKey || !toKey || fromKey === toKey) {
-      resetSeoHome();
-      if (window.location.pathname.indexOf('/compatibility/') === 0 && parseCompatPairFromPath(window.location.pathname)) {
-        history.replaceState(null, '', '/');
-      }
-      return;
-    }
-    var path = '/compatibility/' + fromKey + '-to-' + toKey;
-    if (window.location.pathname !== path) {
-      history.replaceState(null, '', path);
-    }
-    setSeoCompat(fromKey, toKey);
-  }
-
-  function routeNonPairCompatibilityPath() {
-    var path = window.location.pathname.replace(/\/$/, '') || '/';
-    if (path === '/compatibility' || path === '/compatibility/index.html') return false;
-    if (path.indexOf('/compatibility/') !== 0) return false;
-    var rest = path.slice('/compatibility/'.length);
-    if (!rest || rest.indexOf('-to-') !== -1) return false;
-    window.location.replace('/compatibility/');
-    return true;
-  }
-
-  /** e.g. /compatibility/us-to-fr/extra — not a valid pair URL */
-  function routeInvalidMultiSegmentCompatibilityPath() {
-    var path = window.location.pathname.replace(/\/$/, '') || '/';
-    if (path.indexOf('/compatibility/') !== 0) return false;
-    var rest = path.slice('/compatibility/'.length);
-    if (rest.indexOf('/') !== -1) {
-      window.location.replace('/');
-      return true;
-    }
-    return false;
-  }
-
-  function applyCompatDeepLink() {
-    if (routeInvalidMultiSegmentCompatibilityPath()) return true;
-    if (routeNonPairCompatibilityPath()) return true;
-    var pair = parseCompatPairFromPath(window.location.pathname);
-    if (!pair) return false;
-    var from = countries[pair.origin];
-    var to = countries[pair.dest];
-    if (!from || !to || pair.origin === pair.dest) {
-      window.location.replace('/');
-      return true;
-    }
-    fromSelect.value = pair.origin;
-    toSelect.value = pair.dest;
-    setSeoCompat(pair.origin, pair.dest);
-    updateResult({ skipUrlSync: true });
-    return true;
-  }
-
-  function updateResult(opts) {
-    var skipUrlSync = opts && opts.skipUrlSync;
+  function updateResult() {
     var fromKey = fromSelect.value;
     var toKey = toSelect.value;
     if (!fromKey || !toKey) {
       if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
-      resetSeoHome();
-      if (window.location.pathname.indexOf('/compatibility/') === 0 && parseCompatPairFromPath(window.location.pathname)) {
-        history.replaceState(null, '', '/');
-      }
       return;
     }
 
@@ -314,7 +207,6 @@
     if (!from || !to) {
       if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
-      resetSeoHome();
       return;
     }
 
@@ -341,7 +233,15 @@
     resultCompat.textContent = 'Compatibility: ' + (plugCompat ? 'Compatible' : 'Adapter Required');
     resultCompat.className = 'result-compat ' + (plugCompat ? 'compatible' : 'adapter-required');
 
-    resultVoltageLine.textContent = 'Voltage — ' + from.name + ' ' + (from.voltage != null ? from.voltage + 'V' : '—') + ' \u2014 ' + to.name + ' ' + (to.voltage != null ? to.voltage + 'V' : '—');
+    resultVoltageLine.textContent =
+      'Voltage — ' +
+      from.name +
+      ' ' +
+      (from.voltage != null ? from.voltage + 'V' : '—') +
+      ' \u2014 ' +
+      to.name +
+      ' ' +
+      (to.voltage != null ? to.voltage + 'V' : '—');
     resultVoltageExplanation.textContent = voltageMsg;
 
     if (deviceHint) {
@@ -353,9 +253,11 @@
         var vmax = Math.max(va, vb);
         var voltageRatio = vmax ? Math.abs(va - vb) / vmax : 0;
         if (voltageRatio <= 0.2) {
-          deviceHint.innerHTML = '\u2705 You likely only need a plug adapter (if socket shapes differ). Voltage is close between these countries.';
+          deviceHint.innerHTML =
+            '\u2705 You likely only need a plug adapter (if socket shapes differ). Voltage is close between these countries.';
         } else {
-          deviceHint.innerHTML = '\u26a0\ufe0f You may need a voltage converter for some devices, especially high-power ones that are not dual-voltage. Check each device label.';
+          deviceHint.innerHTML =
+            '\u26a0\ufe0f You may need a voltage converter for some devices, especially high-power ones that are not dual-voltage. Check each device label.';
         }
         deviceHint.hidden = false;
       }
@@ -367,21 +269,11 @@
 
     if (fromKey !== toKey) {
       var slug = fromKey + '-to-' + toKey;
-      var guideHref = '/compatibility/' + slug;
-      var here = window.location.pathname.replace(/\/$/, '');
-      if (here === guideHref) {
-        resultGuideLinkWrap.hidden = true;
-      } else {
-        resultGuideLink.href = guideHref;
-        resultGuideLink.textContent = 'View Full Travel Adapter Guide — ' + from.name + ' \u2192 ' + to.name;
-        resultGuideLinkWrap.hidden = false;
-      }
+      resultGuideLink.href = '/compatibility/' + slug;
+      resultGuideLink.textContent = 'View Full Travel Adapter Guide — ' + from.name + ' \u2192 ' + to.name;
+      resultGuideLinkWrap.hidden = false;
     } else {
       resultGuideLinkWrap.hidden = true;
-    }
-
-    if (!skipUrlSync) {
-      syncCompatUrlAndSeo();
     }
 
     resultSection.hidden = false;
@@ -413,26 +305,9 @@
           updateResult();
         });
       }
-      window.addEventListener('popstate', function () {
-        var pair = parseCompatPairFromPath(window.location.pathname);
-        if (pair && countries[pair.origin] && countries[pair.dest] && pair.origin !== pair.dest) {
-          fromSelect.value = pair.origin;
-          toSelect.value = pair.dest;
-          setSeoCompat(pair.origin, pair.dest);
-        } else {
-          fromSelect.value = '';
-          toSelect.value = '';
-          resetSeoHome();
-        }
-        updateResult({ skipUrlSync: true });
-      });
 
-      if (applyCompatDeepLink()) {
-        autoSelectOriginCountry(countries, function () {});
-      } else {
-        updateResult();
-        autoSelectOriginCountry(countries, updateResult);
-      }
+      updateResult();
+      autoSelectOriginCountry(countries, updateResult);
 
       var deviceVoltageInput = document.getElementById('device-voltage-input');
       var checkDeviceVoltageBtn = document.getElementById('check-device-voltage');
@@ -446,7 +321,8 @@
           var destVoltage = dest && dest.voltage != null ? dest.voltage : null;
           var destName = dest ? dest.name : 'your destination';
           if (!range) {
-            deviceVoltageResult.textContent = 'Unable to read the voltage range. Try entering something like 100-240 or 230.';
+            deviceVoltageResult.textContent =
+              'Unable to read the voltage range. Try entering something like 100-240 or 230.';
             deviceVoltageResult.className = 'device-voltage-result device-voltage-result--neutral';
             return;
           }
@@ -458,9 +334,11 @@
           var ok = checkDeviceVoltage(range, destVoltage);
           deviceVoltageResult.className = 'device-voltage-result device-voltage-result--' + (ok ? 'yes' : 'no');
           if (ok) {
-            deviceVoltageResult.textContent = 'Your device supports this voltage and should work safely in ' + destName + '.';
+            deviceVoltageResult.textContent =
+              'Your device supports this voltage and should work safely in ' + destName + '.';
           } else {
-            deviceVoltageResult.textContent = 'Your device may not support this voltage in ' + destName + '. A voltage converter may be required.';
+            deviceVoltageResult.textContent =
+              'Your device may not support this voltage in ' + destName + '. A voltage converter may be required.';
           }
         });
       }
