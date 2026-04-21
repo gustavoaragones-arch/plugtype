@@ -98,17 +98,26 @@ function main() {
   console.log('Wrote sitemaps/sitemap-compatibility-2.xml:', compatChunk2.length, 'URLs');
 
   // --- Sitemap index ---
-  let indexXml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-  indexXml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-  for (const e of indexEntries) {
-    indexXml += '  <sitemap>\n';
-    indexXml += '    <loc>' + e.loc + '</loc>\n';
-    indexXml += '  </sitemap>\n';
-  }
-  indexXml += '</sitemapindex>\n';
-  fs.writeFileSync(INDEX_PATH, indexXml, 'utf8');
-  fs.writeFileSync(ROOT_INDEX_COMPAT_PATH, indexXml, 'utf8');
-  console.log('Wrote sitemaps/sitemap-index.xml with', indexEntries.length, 'sitemaps');
+  const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/sitemap-countries.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/sitemap-compatibility-1.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://plugtype.world/sitemaps/sitemap-compatibility-2.xml</loc>
+  </sitemap>
+
+</sitemapindex>
+`;
+  fs.writeFileSync(path.join(SITEMAPS_DIR, 'sitemap-index.xml'), sitemapIndex, 'utf8');
+  fs.writeFileSync(ROOT_INDEX_COMPAT_PATH, sitemapIndex, 'utf8');
+  console.log('Wrote sitemaps/sitemap-index.xml');
 
   const totalUrls = indexEntries.reduce((sum, e) => sum + e.count, 0);
   console.log('Total URLs across all sitemaps:', totalUrls);
