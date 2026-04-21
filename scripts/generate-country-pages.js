@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Generate static country pages from data/countries.json.
+ * Generate static country pages (plugs, voltage, high-intent route hubs).
+ * Output: pages/countries/{country-key}.html
+ * URL policy (Option A): canonical and internal links use /pages/countries/ only.
  * Run from project root: node scripts/generate-country-pages.js
  */
 
@@ -9,108 +11,246 @@ const path = require('path');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
-const PLUG_TYPES_PATH = path.join(PROJECT_ROOT, 'data', 'plug-types.json');
+const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'templates', 'country-page-template.html');
 const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'countries');
-const BASE_URL = 'https://plugtype.world';
-const BASE = BASE_URL;
+const BASE = 'https://plugtype.world';
+const BUILD_DATE = new Date().toISOString().split('T')[0];
+
+/** High-intent destinations always linked first (when not the page’s own country). */
+const PRIORITY_INTEL_DESTINATIONS = [
+  'united-states',
+  'united-kingdom',
+  'canada',
+  'australia',
+  'germany',
+  'france',
+  'spain',
+  'italy',
+  'japan',
+  'thailand',
+  'brazil',
+  'mexico'
+];
+const TOP_DESTINATIONS = ['united-states', 'united-kingdom', 'canada', 'australia', 'japan'];
+
+/** Total popular-route links (12–20). */
+const TARGET_ROUTE_COUNT = 18;
 
 function loadJSON(filePath) {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(raw);
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function pickRandom(arr, n) {
-  const shuffled = [...arr].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, n);
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-function countryKeyToSlug(key) {
-  return key + '.html';
+function deterministicVariantIndex(originKey, destKey, modulo) {
+  const s = originKey + '\x1e' + destKey;
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h) % modulo;
 }
 
-function renderCountryPage(countryKey, country, allKeys, countries, plugTypes) {
-  const name = country.name;
-  const plugTypesLine = (country.plug_types || []).join(' ');
-  const voltage = country.voltage ?? '';
-  const frequency = country.frequency ?? '';
+function formatPlugTypesInline(types) {
+  if (!types || types.length === 0) return '—';
+  const t = types.map(x => escapeHtml(String(x).trim()));
+  if (t.length === 1) return t[0];
+  if (t.length === 2) return t[0] + ' and ' + t[1];
+  return t.slice(0, -1).join(', ') + ', and ' + t[t.length - 1];
+}
 
-  const otherKeys = allKeys.filter(k => k !== countryKey);
-  const randomKeys = pickRandom(otherKeys, 5);
-  const randomLinks = randomKeys
-    .map(k => {
-      const c = countries[k];
-      return c ? `<a href="${countryKeyToSlug(k)}">${c.name}</a>` : '';
+function formatPlugTypesSpaced(types) {
+  if (!types || types.length === 0) return '—';
+  return types.map(x => escapeHtml(String(x).trim())).join(' ');
+}
+
+function buildPopularRouteDestinations(countryKey, allKeys, countries) {
+  const chosen = [];
+  const seen = new Set([countryKey]);
+
+  for (const d of PRIORITY_INTEL_DESTINATIONS) {
+    if (seen.has(d)) continue;
+    if (!countries[d]) continue;
+    chosen.push(d);
+    seen.add(d);
+  }
+
+  const rest = allKeys
+    .filter(k => !seen.has(k) && countries[k])
+    .map(k => ({
+      k,
+      v: deterministicVariantIndex(countryKey + ':popular', k, 1000007)
+    }))
+    .sort((a, b) => a.v - b.v || a.k.localeCompare(b.k));
+
+  for (const { k } of rest) {
+    if (chosen.length >= TARGET_ROUTE_COUNT) break;
+    chosen.push(k);
+    seen.add(k);
+  }
+
+  if (chosen.length < 12) {
+    for (const k of allKeys) {
+      if (chosen.length >= 12) break;
+      if (seen.has(k) || !countries[k]) continue;
+      chosen.push(k);
+      seen.add(k);
+    }
+  }
+
+  return chosen;
+}
+
+function buildPopularRoutesList(countryKey, country, countries, destKeys) {
+  const fromName = escapeHtml(country.name);
+  return destKeys
+    .map(d => {
+      const toName = escapeHtml(countries[d].name);
+      const href = `../compatibility/${countryKey}-to-${d}.html`;
+      const anchor = `${fromName} → ${toName} plug adapter`;
+      return `      <li><a href="${href}">${anchor}</a></li>`;
     })
-    .filter(Boolean)
-    .join(', ');
+    .join('\n');
+}
 
-  const plugLinks = (country.plug_types || [])
-    .map(t => `<a href="../plug-types/type-${t.toLowerCase()}.html">Type ${t}</a>`)
-    .join(', ');
+function buildTopRoutesList(countryKey, country, countries) {
+  const fromName = escapeHtml(country.name);
+  return TOP_DESTINATIONS.filter(dest => dest !== countryKey && countries[dest])
+    .map(dest => {
+      const toName = escapeHtml(countries[dest].name);
+      return `      <li><a href="../compatibility/${countryKey}-to-${dest}.html">${fromName} → ${toName} plug adapter</a></li>`;
+    })
+    .join('\n');
+}
 
-  const title = `Plug Type in ${name} – Power Outlets & Voltage Guide`;
-  const metaDesc = `Find out what plug types are used in ${name}. See voltage, frequency, and whether you need a travel adapter.`;
+function buildIntro(country, plugTypesInline, voltageDisplay, frequencyDisplay) {
+  const name = escapeHtml(country.name);
+  return (
+    `In ${name}, power plugs and sockets are of type ${plugTypesInline}. ` +
+    `The standard voltage is ${voltageDisplay} and the frequency is ${frequencyDisplay}.`
+  );
+}
+
+function buildPage(countryKey, countries, allKeys) {
+  const country = countries[countryKey];
+  if (!country) return null;
+
+  const displayName = country.name || countryKey;
+  const plugTypesInline = formatPlugTypesInline(country.plug_types || []);
+  const plugTypesSpaced = formatPlugTypesSpaced(country.plug_types || []);
+  const plugTypeWord = (country.plug_types || []).length > 1 ? 'types' : 'type';
+
+  const voltageNumeric =
+    country.voltage != null && country.voltage !== ''
+      ? escapeHtml(String(country.voltage))
+      : '—';
+  const frequencyNumeric =
+    country.frequency != null && country.frequency !== ''
+      ? escapeHtml(String(country.frequency))
+      : '—';
+
+  const voltageDisplay =
+    country.voltage != null && country.voltage !== ''
+      ? voltageNumeric + 'V'
+      : '—';
+  const frequencyDisplay =
+    country.frequency != null && country.frequency !== ''
+      ? frequencyNumeric + 'Hz'
+      : '—';
+
+  const voltageSemantic =
+    country.voltage != null && country.voltage !== ''
+      ? escapeHtml(String(country.voltage)) + 'V'
+      : 'an electricity supply where nominal voltage can vary—check locally';
+
+  const voltageFaq =
+    country.voltage != null && country.voltage !== ''
+      ? escapeHtml(String(country.voltage)) + 'V'
+      : '— (confirm for your location)';
+
+  const h1 = `Power Plugs and Voltage in ${escapeHtml(displayName)}`;
+  const title = `Power Plugs in ${displayName} – Type, Voltage & Travel Adapter Guide`;
+  const metaDesc = `Find out which plug types, voltage, and frequency are used in ${displayName}. Check if you need a travel adapter or voltage converter.`;
+  const canonical = `${BASE}/pages/countries/${countryKey}.html`;
+
+  const intro = buildIntro(country, plugTypesInline, voltageDisplay, frequencyDisplay);
+
+  const breadcrumb =
+    '<a href="../../index.html">Home</a> \u2192 <a href="index.html">Countries</a> \u2192 ' +
+    escapeHtml(displayName);
+
   const articleJson = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description: metaDesc,
-    about: { '@type': 'Place', name: name }
+    about: { '@type': 'Place', name: displayName }
   });
 
-  let html = fs.readFileSync(
-    path.join(PROJECT_ROOT, 'templates', 'country-template.html'),
-    'utf8'
-  );
+  const routeDests = buildPopularRouteDestinations(countryKey, allKeys, countries);
+  const popularRoutes = buildPopularRoutesList(countryKey, country, countries, routeDests);
+  const topRoutes = buildTopRoutesList(countryKey, country, countries);
+  const escapedDisplay = escapeHtml(displayName);
 
-  const canonical = BASE + '/pages/countries/' + countryKey + '.html';
+  const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   const replacements = {
-    '{{TITLE}}': title,
-    '{{META_DESCRIPTION}}': metaDesc,
-    '{{ARTICLE_JSON}}': articleJson,
+    '{{TITLE}}': escapeHtml(title),
+    '{{META_DESCRIPTION}}': escapeHtml(metaDesc),
     '{{CANONICAL}}': canonical,
-    '{{COUNTRY_NAME}}': name,
-    '{{PLUG_TYPES_LINE}}': plugTypesLine || '—',
-    '{{VOLTAGE}}': voltage,
-    '{{FREQUENCY}}': frequency,
-    '{{HOME_LINK}}': '../../index.html',
-    '{{CSS_PATH}}': '../../css/styles.css',
-    '{{ROOT}}': '../../',
-    '{{PLUG_TYPE_LINKS}}': plugLinks || '—',
-    '{{RANDOM_COUNTRY_LINKS}}': randomLinks || '—'
+    '{{H1}}': h1,
+    '{{INTRO}}': intro,
+    '{{BREADCRUMB}}': breadcrumb,
+    '{{COUNTRY_NAME}}': escapedDisplay,
+    '{{PLUG_TYPES_INLINE}}': plugTypesInline,
+    '{{PLUG_TYPES_SPACED}}': plugTypesSpaced,
+    '{{PLUG_TYPE_WORD}}': plugTypeWord,
+    '{{VOLTAGE}}': voltageNumeric,
+    '{{FREQUENCY}}': frequencyNumeric,
+    '{{VOLTAGE_DISPLAY}}': voltageDisplay,
+    '{{FREQUENCY_DISPLAY}}': frequencyDisplay,
+    '{{VOLTAGE_SEMANTIC}}': voltageSemantic,
+    '{{VOLTAGE_FAQ}}': voltageFaq,
+    '{{BUILD_DATE}}': BUILD_DATE,
+    '{{TOP_ROUTES}}': topRoutes,
+    '{{POPULAR_ROUTES}}': popularRoutes,
+    '{{ARTICLE_JSON}}': articleJson
   };
 
+  let html = template;
   for (const [key, value] of Object.entries(replacements)) {
     html = html.split(key).join(value);
   }
-
   return html;
 }
 
 function main() {
   const countries = loadJSON(COUNTRIES_PATH);
-  const allKeys = Object.keys(countries);
+  const allKeys = Object.keys(countries).sort((a, b) =>
+    (countries[a].name || '').localeCompare(countries[b].name || '')
+  );
 
   if (!fs.existsSync(OUT_DIR)) {
     fs.mkdirSync(OUT_DIR, { recursive: true });
   }
 
-  let plugTypes = {};
-  try {
-    plugTypes = loadJSON(PLUG_TYPES_PATH);
-  } catch (e) {
-    // optional
-  }
-
-  for (const key of allKeys) {
-    const country = countries[key];
-    const html = renderCountryPage(key, country, allKeys, countries, plugTypes);
-    const outPath = path.join(OUT_DIR, countryKeyToSlug(key));
+  let count = 0;
+  for (const countryKey of allKeys) {
+    if (!countries[countryKey]) continue;
+    const html = buildPage(countryKey, countries, allKeys);
+    if (!html) continue;
+    const outPath = path.join(OUT_DIR, `${countryKey}.html`);
     fs.writeFileSync(outPath, html, 'utf8');
-    console.log('Wrote', outPath);
+    count++;
   }
 
-  console.log('Done. Generated', allKeys.length, 'country pages.');
+  console.log('Done. Generated', count, 'country pages in', OUT_DIR);
 }
 
 main();

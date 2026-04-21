@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:map": "node scripts/build-world-map-svg.js",
+    "generate:countries": "node scripts/generate-country-pages.js",
     "serve": "serve . -l 4173",
     "serve:alt": "serve . -l 8787",
     "serve:python": "python3 -m http.server 4173 --bind 127.0.0.1"

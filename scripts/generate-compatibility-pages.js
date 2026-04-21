@@ -13,6 +13,7 @@ const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'templates', 'compatibility-template.html');
 const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'compatibility');
 const BASE = 'https://plugtype.world';
+const BUILD_DATE = new Date().toISOString().split('T')[0];
 
 function loadJSON(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -106,6 +107,125 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+/** Stable per route (not Math.random) so content does not churn on every regeneration. */
+function deterministicVariantIndex(originKey, destKey, modulo) {
+  const s = originKey + '\x1e' + destKey;
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h) % modulo;
+}
+
+function buildPairIntro(origin, dest, originKey, destKey) {
+  const from = escapeHtml(origin.name);
+  const to = escapeHtml(dest.name);
+  const intros = [
+    `Traveling from ${from} to ${to}? This guide explains plug types, voltage differences, and whether you need a travel adapter or converter.`,
+    `If you're going from ${from} to ${to}, here's what you need to know about plugs and voltage.`,
+    `Planning a trip from ${from} to ${to}? Check compatibility, voltage, and adapter requirements here.`
+  ];
+  const idx = deterministicVariantIndex(originKey, destKey, intros.length);
+  return intros[idx];
+}
+
+function generateDevicesAndAdapterSections(origin, dest, plugCompat, originPlugLine, destPlugLine, originKey, destKey) {
+  const from = escapeHtml(origin.name);
+  const to = escapeHtml(dest.name);
+  const plugsDest = escapeHtml(destPlugLine);
+
+  const deviceOpenings = [
+    'If your device supports <strong>100–240V</strong>, it will work in ' + to + ' with just a plug adapter when the socket shape differs.',
+    'Devices rated <strong>100–240V</strong> are widely compatible in ' + to + '—you typically only need the right plug adapter for the outlet.',
+    'Dual-voltage gear (often labeled <strong>100–240V</strong>) can run in ' + to + ' once you have a matching plug or adapter.'
+  ];
+  const dIdx = deterministicVariantIndex(originKey + ':devices', destKey, deviceOpenings.length);
+
+  let adapterLead;
+  if (plugCompat) {
+    adapterLead =
+      'You might not need a plug shape adapter if your device already uses a type common to both countries. ' +
+      'If your plug does not match any outlet type in ' +
+      to +
+      ', you will still need a travel adapter.';
+  } else {
+    adapterLead =
+      'Yes — if your plug type from ' +
+      from +
+      ' does not match the outlets in ' +
+      to +
+      ', you will need a travel adapter.';
+  }
+
+  const adapterSecondaries = [
+    to + ' uses plug types ' + plugsDest + ', which may differ from ' + from + '.',
+    'Outlets in ' + to + ' are built for plug types ' + plugsDest + '; compare those with what you use in ' + from + '.',
+    'Expect plug types ' + plugsDest + ' in ' + to + '—they are not always the same as in ' + from + '.'
+  ];
+  const aIdx = deterministicVariantIndex(originKey + ':adapter2', destKey, adapterSecondaries.length);
+
+  return (
+    '<section class="compat-devices">\n' +
+    '  <h2>Can you use your devices in ' +
+    to +
+    '?</h2>\n' +
+    '  <p>' +
+    deviceOpenings[dIdx] +
+    ' Most modern electronics like phones and laptops are dual voltage.</p>\n' +
+    '  <p>If your device is single voltage (for example 120V only), you may need a voltage converter.</p>\n' +
+    '</section>\n' +
+    '<section class="compat-adapter-need">\n' +
+    '  <h2>Do you need a plug adapter for ' +
+    to +
+    '?</h2>\n' +
+    '  <p>' +
+    adapterLead +
+    '</p>\n' +
+    '  <p>' +
+    adapterSecondaries[aIdx] +
+    '</p>\n' +
+    '</section>\n'
+  );
+}
+
+function buildCountryDeepLinks(originKey, destKey, origin, dest) {
+  const on = escapeHtml(origin.name);
+  const dn = escapeHtml(dest.name);
+  return (
+    '<p class="country-links">' +
+    'From ' +
+    on +
+    ': ' +
+    '<a href="../countries/' +
+    originKey +
+    '.html">' +
+    on +
+    ' plug types &amp; voltage</a><br>\n' +
+    'To ' +
+    dn +
+    ': ' +
+    '<a href="../countries/' +
+    destKey +
+    '.html">' +
+    dn +
+    ' plug types &amp; voltage</a>' +
+    '</p>\n'
+  );
+}
+
+function buildClosingNote(origin, dest) {
+  const from = escapeHtml(origin.name);
+  const to = escapeHtml(dest.name);
+  return (
+    'Always check your device label before traveling from ' +
+    from +
+    ' to ' +
+    to +
+    '. This ensures safe and reliable use of your electronics abroad.'
+  );
+}
+
 function buildPage(originKey, destKey, countries, allDestKeys) {
   const origin = countries[originKey];
   const dest = countries[destKey];
@@ -117,6 +237,13 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
 
   const originPlugLine = (origin.plug_types || []).join(' ') || '—';
   const destPlugLine = (dest.plug_types || []).join(' ') || '—';
+  const toPlugWord = (dest.plug_types || []).length > 1 ? 'types' : 'type';
+  const fromVoltageNumeric =
+    origin.voltage != null && origin.voltage !== '' ? escapeHtml(String(origin.voltage)) : '—';
+  const toVoltageNumeric =
+    dest.voltage != null && dest.voltage !== '' ? escapeHtml(String(dest.voltage)) : '—';
+  const toFrequencyNumeric =
+    dest.frequency != null && dest.frequency !== '' ? escapeHtml(String(dest.frequency)) : '—';
 
   let summaryText = plugCompat
     ? `Your ${origin.name} plug may fit in ${dest.name} outlets, as both use at least one common plug type.`
@@ -157,6 +284,19 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     .map(r => `<a href="${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`)
     .join(' · ');
 
+  const pairIntro = buildPairIntro(origin, dest, originKey, destKey);
+  const devicesAndAdapterSections = generateDevicesAndAdapterSections(
+    origin,
+    dest,
+    plugCompat,
+    originPlugLine,
+    destPlugLine,
+    originKey,
+    destKey
+  );
+  const closingNote = buildClosingNote(origin, dest);
+  const countryDeepLinks = buildCountryDeepLinks(originKey, destKey, origin, dest);
+
   const voltageRatio = voltageRelativeRatio(origin.voltage, dest.voltage);
   const contextualAuthority =
     generateShortExplanation(origin, dest) +
@@ -173,11 +313,22 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     '{{META_DESCRIPTION}}': metaDesc,
     '{{CANONICAL}}': canonical,
     '{{H1}}': h1,
+    '{{PAIR_INTRO}}': pairIntro,
+    '{{DEVICES_AND_ADAPTER_SECTIONS}}': devicesAndAdapterSections,
+    '{{CLOSING_NOTE}}': closingNote,
     '{{ARTICLE_JSON}}': articleJson,
     '{{BREADCRUMB}}': breadcrumb,
     '{{SUMMARY_TEXT}}': summaryText,
     '{{ORIGIN_NAME}}': origin.name,
     '{{DEST_NAME}}': dest.name,
+    '{{FROM_COUNTRY}}': origin.name,
+    '{{TO_COUNTRY}}': dest.name,
+    '{{FROM_VOLTAGE}}': fromVoltageNumeric,
+    '{{TO_VOLTAGE}}': toVoltageNumeric,
+    '{{FROM_PLUGS}}': originPlugLine,
+    '{{TO_PLUGS}}': destPlugLine,
+    '{{TO_PLUG_WORD}}': toPlugWord,
+    '{{TO_FREQUENCY}}': toFrequencyNumeric,
     '{{ORIGIN_PLUG_LINE}}': originPlugLine,
     '{{DEST_PLUG_LINE}}': destPlugLine,
     '{{ADAPTER_EXPLANATION}}': adapterExplanation,
@@ -186,6 +337,8 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     '{{ORIGIN_FREQ}}': origin.frequency ?? '—',
     '{{DEST_FREQ}}': dest.frequency ?? '—',
     '{{VOLTAGE_WARNING}}': voltageWarningHtml,
+    '{{BUILD_DATE}}': BUILD_DATE,
+    '{{COUNTRY_DEEP_LINKS}}': countryDeepLinks,
     '{{CONTEXTUAL_AUTHORITY}}': contextualAuthority,
     '{{HOME_LINK}}': '../../index.html',
     '{{CSS_PATH}}': '../../css/styles.css',

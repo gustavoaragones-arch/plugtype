@@ -12,12 +12,21 @@
 <body>
   <header class="hero">
     <h1>{{H1}}</h1>
+    <section class="search-summary">
+      <p>
+        {{FROM_COUNTRY}} to {{TO_COUNTRY}} plug adapter, voltage {{FROM_VOLTAGE}}V to {{TO_VOLTAGE}}V, plug types {{FROM_PLUGS}} to {{TO_PLUGS}}.
+      </p>
+    </section>
+    <p class="search-variants">{{TO_COUNTRY}} plug {{TO_PLUG_WORD}} {{TO_PLUGS}} {{TO_VOLTAGE}}V {{TO_FREQUENCY}}Hz.</p>
+    <p class="last-updated">Last updated: {{BUILD_DATE}}</p>
+    <p class="intro">{{PAIR_INTRO}}</p>
     <p class="tagline"><a href="{{HOME_LINK}}">← Compatibility tool</a></p>
   </header>
 
   <main>
     <nav class="breadcrumb" aria-label="Breadcrumb">{{BREADCRUMB}}</nav>
     <!-- adsense-slot -->
+    {{DEVICES_AND_ADAPTER_SECTIONS}}
     <section class="compat-summary">
       <h2>Compatibility summary</h2>
       <p>{{SUMMARY_TEXT}}</p>
@@ -29,6 +38,8 @@
       <p><strong>{{DEST_NAME}} plug types:</strong> {{DEST_PLUG_LINE}}</p>
       <p>{{ADAPTER_EXPLANATION}}</p>
     </section>
+
+    {{COUNTRY_DEEP_LINKS}}
 
     <section class="compat-voltage">
       <h2>Voltage comparison</h2>
@@ -55,10 +66,11 @@
       <p>{{RELATED_LINKS}}</p>
     </section>
     <!-- adsense-slot -->
+    <p class="closing-note">{{CLOSING_NOTE}}</p>
   </main>
 
   <footer>
-    <p><a href="{{ROOT}}about.html">About</a> · <a href="{{ROOT}}contact.html">Contact</a> · <a href="{{ROOT}}privacy.html">Privacy</a> · <a href="{{ROOT}}terms.html">Terms</a> · <a href="{{ROOT}}sitemap/">HTML Sitemap</a></p>
+    <p><a href="{{ROOT}}about.html">About</a> · <a href="{{ROOT}}contact.html">Contact</a> · <a href="{{ROOT}}privacy.html">Privacy</a> · <a href="{{ROOT}}terms.html">Terms</a> · <a href="/sitemap/index.html">HTML Sitemap</a></p>
     <p>Plug Type World is a product of Albor Digital LLC.</p>
   </footer>
 </body>

@@ -42,6 +42,15 @@ header.hero {
   font-weight: 700;
 }
 
+.hero .intro {
+  margin: 0.75rem auto 0.5rem;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  text-align: left;
+}
+
 .tagline {
   margin: 0;
   font-size: 1rem;
@@ -573,10 +582,167 @@ footer p:last-child {
 }
 
 .compat-summary,
+.compat-devices,
+.compat-adapter-need,
 .compat-plug,
 .compat-voltage,
 .compat-related,
 .compat-related-pages {
+  margin-bottom: 1.5rem;
+}
+
+.compat-devices h2,
+.compat-adapter-need h2 {
+  font-size: 1.125rem;
+}
+
+.search-summary {
+  font-size: 14px;
+  color: #444;
+  margin-top: 8px;
+}
+
+.search-variants {
+  font-size: 13px;
+  color: #666;
+}
+
+.last-updated {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+.closing-note {
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+  background: #f8f9fb;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.country-links {
+  margin: 0 0 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.country-links a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.country-links a:hover {
+  text-decoration: underline;
+}
+
+.hero .country-popular-routes-heading {
+  margin: 1rem auto 0.5rem;
+  max-width: 42rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.hero .popular-routes {
+  margin: 0 auto 1rem;
+  max-width: 42rem;
+  padding-left: 1.25rem;
+  text-align: left;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.hero .country-top-routes-heading {
+  margin: 0.9rem auto 0.5rem;
+  max-width: 42rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.top-routes {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.top-routes li {
+  margin-bottom: 0.35rem;
+}
+
+.top-routes a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.top-routes a:hover {
+  text-decoration: underline;
+}
+
+.top-routes-section {
+  margin-bottom: 1.5rem;
+}
+
+.hero .popular-routes li {
+  margin-bottom: 0.35rem;
+}
+
+.hero .popular-routes a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.hero .popular-routes a:hover {
+  text-decoration: underline;
+}
+
+.country-faq h3 {
+  margin: 1rem 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.country-faq h2 + h3 {
+  margin-top: 0.5rem;
+}
+
+.explore-countries {
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.explore-countries h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.explore-countries-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.explore-countries-list li {
+  margin-bottom: 0.35rem;
+}
+
+.explore-countries-list a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.explore-countries-list a:hover {
+  text-decoration: underline;
+}
+
+.country-plug-types,
+.country-voltage,
+.country-semantic-why,
+.country-adapter-need,
+.country-devices,
+.country-faq {
   margin-bottom: 1.5rem;
 }
 
