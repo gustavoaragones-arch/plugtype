@@ -1,0 +1,5 @@
+# Cloudflare Pages — build output = repo root so /sitemaps/*.xml and all static files deploy.
+# `name` must match your Pages project name in the dashboard.
+name = "plugtype-world"
+compatibility_date = "2026-04-21"
+pages_build_output_dir = "."
