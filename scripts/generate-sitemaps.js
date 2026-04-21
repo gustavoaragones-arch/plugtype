@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate crawl-priority sitemaps under /sitemaps.
+ * Generate crawl-priority sitemaps under /public/sitemaps (served at /sitemaps/* on Vercel and most static hosts).
  * Run from project root: node scripts/generate-sitemaps.js
  */
 
@@ -9,8 +9,8 @@ const path = require('path');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
-const SITEMAPS_DIR = path.join(PROJECT_ROOT, 'sitemaps');
-const INDEX_PATH = path.join(SITEMAPS_DIR, 'sitemap-index.xml');
+/** Served at https://plugtype.world/sitemaps/… (Vercel maps public/ to site root) */
+const PUBLIC_SITEMAPS_DIR = path.join(PROJECT_ROOT, 'public', 'sitemaps');
 const ROOT_INDEX_COMPAT_PATH = path.join(PROJECT_ROOT, 'sitemap-index.xml');
 const BASE = 'https://plugtype.world';
 const MAX_URLS_PER_SITEMAP = 50000;
@@ -35,8 +35,8 @@ function writeUrlset(filePath, entries) {
 }
 
 function main() {
-  if (!fs.existsSync(SITEMAPS_DIR)) {
-    fs.mkdirSync(SITEMAPS_DIR, { recursive: true });
+  if (!fs.existsSync(PUBLIC_SITEMAPS_DIR)) {
+    fs.mkdirSync(PUBLIC_SITEMAPS_DIR, { recursive: true });
   }
 
   const indexEntries = [];
@@ -69,10 +69,10 @@ function main() {
     countryEntries.push({ loc: BASE + '/pages/plug-types/type-' + letter + '.html', priority: '0.7' });
   }
 
-  const countriesPath = path.join(SITEMAPS_DIR, 'sitemap-countries.xml');
+  const countriesPath = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-countries.xml');
   writeUrlset(countriesPath, countryEntries);
   indexEntries.push({ loc: BASE + '/sitemaps/sitemap-countries.xml', count: countryEntries.length });
-  console.log('Wrote sitemaps/sitemap-countries.xml:', countryEntries.length, 'URLs');
+  console.log('Wrote public/sitemaps/sitemap-countries.xml:', countryEntries.length, 'URLs');
 
   // --- Compatibility pages (split into chunks of 50k) ---
   const compatUrls = [];
@@ -88,14 +88,14 @@ function main() {
   const compatChunk1 = compatEntries.slice(0, MAX_URLS_PER_SITEMAP);
   const compatChunk2 = compatEntries.slice(MAX_URLS_PER_SITEMAP, MAX_URLS_PER_SITEMAP * 2);
 
-  const compat1Path = path.join(SITEMAPS_DIR, 'sitemap-compatibility-1.xml');
-  const compat2Path = path.join(SITEMAPS_DIR, 'sitemap-compatibility-2.xml');
+  const compat1Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-1.xml');
+  const compat2Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-2.xml');
   writeUrlset(compat1Path, compatChunk1);
   writeUrlset(compat2Path, compatChunk2);
   indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-1.xml', count: compatChunk1.length });
   indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-2.xml', count: compatChunk2.length });
-  console.log('Wrote sitemaps/sitemap-compatibility-1.xml:', compatChunk1.length, 'URLs');
-  console.log('Wrote sitemaps/sitemap-compatibility-2.xml:', compatChunk2.length, 'URLs');
+  console.log('Wrote public/sitemaps/sitemap-compatibility-1.xml:', compatChunk1.length, 'URLs');
+  console.log('Wrote public/sitemaps/sitemap-compatibility-2.xml:', compatChunk2.length, 'URLs');
 
   // --- Sitemap index ---
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
@@ -115,9 +115,9 @@ function main() {
 
 </sitemapindex>
 `;
-  fs.writeFileSync(path.join(SITEMAPS_DIR, 'sitemap-index.xml'), sitemapIndex, 'utf8');
+  fs.writeFileSync(path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-index.xml'), sitemapIndex, 'utf8');
   fs.writeFileSync(ROOT_INDEX_COMPAT_PATH, sitemapIndex, 'utf8');
-  console.log('Wrote sitemaps/sitemap-index.xml');
+  console.log('Wrote public/sitemaps/sitemap-index.xml');
 
   const totalUrls = indexEntries.reduce((sum, e) => sum + e.count, 0);
   console.log('Total URLs across all sitemaps:', totalUrls);
