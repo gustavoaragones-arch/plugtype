@@ -197,7 +197,7 @@ function buildCountryDeepLinks(originKey, destKey, origin, dest) {
     'From ' +
     on +
     ': ' +
-    '<a href="../countries/' +
+    '<a href="/pages/countries/' +
     originKey +
     '.html">' +
     on +
@@ -205,7 +205,7 @@ function buildCountryDeepLinks(originKey, destKey, origin, dest) {
     'To ' +
     dn +
     ': ' +
-    '<a href="../countries/' +
+    '<a href="/pages/countries/' +
     destKey +
     '.html">' +
     dn +
@@ -281,7 +281,10 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
 
   const related = pickRelated(originKey, destKey, allDestKeys, countries, 5);
   const relatedLinks = related
-    .map(r => `<a href="${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`)
+    .map(
+      r =>
+        `<a href="/pages/compatibility/${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`
+    )
     .join(' · ');
 
   const pairIntro = buildPairIntro(origin, dest, originKey, destKey);
@@ -340,11 +343,11 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     '{{BUILD_DATE}}': BUILD_DATE,
     '{{COUNTRY_DEEP_LINKS}}': countryDeepLinks,
     '{{CONTEXTUAL_AUTHORITY}}': contextualAuthority,
-    '{{HOME_LINK}}': '../../index.html',
-    '{{CSS_PATH}}': '../../css/styles.css',
-    '{{ROOT}}': '../../',
-    '{{ORIGIN_COUNTRY_LINK}}': `../countries/${originKey}.html`,
-    '{{DEST_COUNTRY_LINK}}': `../countries/${destKey}.html`,
+    '{{HOME_LINK}}': '/index.html',
+    '{{CSS_PATH}}': '/css/styles.css',
+    '{{ROOT}}': '/',
+    '{{ORIGIN_COUNTRY_LINK}}': `/pages/countries/${originKey}.html`,
+    '{{DEST_COUNTRY_LINK}}': `/pages/countries/${destKey}.html`,
     '{{RELATED_LINKS}}': relatedLinks || '—'
   };
 

@@ -113,7 +113,7 @@ function buildPopularRoutesList(countryKey, country, countries, destKeys) {
   return destKeys
     .map(d => {
       const toName = escapeHtml(countries[d].name);
-      const href = `../compatibility/${countryKey}-to-${d}.html`;
+      const href = `/pages/compatibility/${countryKey}-to-${d}.html`;
       const anchor = `${fromName} → ${toName} plug adapter`;
       return `      <li><a href="${href}">${anchor}</a></li>`;
     })
@@ -125,7 +125,7 @@ function buildTopRoutesList(countryKey, country, countries) {
   return TOP_DESTINATIONS.filter(dest => dest !== countryKey && countries[dest])
     .map(dest => {
       const toName = escapeHtml(countries[dest].name);
-      return `      <li><a href="../compatibility/${countryKey}-to-${dest}.html">${fromName} → ${toName} plug adapter</a></li>`;
+      return `      <li><a href="/pages/compatibility/${countryKey}-to-${dest}.html">${fromName} → ${toName} plug adapter</a></li>`;
     })
     .join('\n');
 }
@@ -183,7 +183,7 @@ function buildPage(countryKey, countries, allKeys) {
   const intro = buildIntro(country, plugTypesInline, voltageDisplay, frequencyDisplay);
 
   const breadcrumb =
-    '<a href="../../index.html">Home</a> \u2192 <a href="index.html">Countries</a> \u2192 ' +
+    '<a href="/index.html">Home</a> \u2192 <a href="/pages/countries/">Countries</a> \u2192 ' +
     escapeHtml(displayName);
 
   const articleJson = JSON.stringify({

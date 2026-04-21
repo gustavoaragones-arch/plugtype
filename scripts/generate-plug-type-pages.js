@@ -59,7 +59,7 @@ function main() {
     const list = byType[letter] || [];
     const countryLinks = list
       .slice(0, 80)
-      .map(c => `<a href="../countries/${c.key}.html">${escapeHtml(c.name)}</a>`)
+      .map(c => `<a href="/pages/countries/${c.key}.html">${escapeHtml(c.name)}</a>`)
       .join(', ');
     const more = list.length > 80 ? ` and ${list.length - 80} more.` : '.';
 
@@ -74,7 +74,7 @@ function main() {
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(metaDesc)}">
   <link rel="canonical" href="https://plugtype.world/pages/plug-types/type-${letter}.html">
-  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css">
   <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -85,7 +85,7 @@ function main() {
 <body>
   <header class="hero">
     <h1>${escapeHtml(info.name)} Plug – Countries &amp; Compatibility</h1>
-    <p class="tagline"><a href="../../index.html">← Compatibility tool</a></p>
+    <p class="tagline"><a href="/index.html">← Compatibility tool</a></p>
   </header>
 
   <main>
@@ -102,20 +102,20 @@ function main() {
 
     <section class="cta-section">
       <h2>Check compatibility</h2>
-      <p><a href="../../index.html" class="cta-button">Use the compatibility tool</a></p>
+      <p><a href="/index.html" class="cta-button">Use the compatibility tool</a></p>
     </section>
 
     <section class="faq-section">
       <h2>FAQ</h2>
       <dl>
         <dt>Do I need an adapter for Type ${letter}?</dt>
-        <dd>Use our <a href="../../index.html">compatibility tool</a> with your country and destination to see if you need an adapter.</dd>
+        <dd>Use our <a href="/index.html">compatibility tool</a> with your country and destination to see if you need an adapter.</dd>
       </dl>
     </section>
   </main>
 
   <footer>
-    <p><a href="../../about.html">About</a> · <a href="../../contact.html">Contact</a> · <a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a> · <a href="../../sitemap/">HTML Sitemap</a></p>
+    <p><a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap/">HTML Sitemap</a></p>
     <p>Plug Type World is a product of Albor Digital LLC.</p>
   </footer>
 </body>

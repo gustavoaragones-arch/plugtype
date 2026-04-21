@@ -234,7 +234,7 @@
   }
 
   loadCountries(function () {
-    fetch('images/world-map.svg')
+    fetch('/images/world-map.svg')
       .then(function (r) {
         if (!r.ok) throw new Error('map svg ' + r.status);
         return r.text();
