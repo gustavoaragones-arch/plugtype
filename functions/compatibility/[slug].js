@@ -174,7 +174,7 @@ export async function onRequest(context) {
     '    <p class="tagline">Plug adapter &amp; voltage compatibility</p>\n' +
     '  </header>\n' +
     '  <main>\n' +
-    '    <nav class="tool-context-links" aria-label="Breadcrumb"><a href="/">Home</a> · <a href="/compatibility/">Compatibility guides</a></nav>\n' +
+    '    <nav class="tool-context-links" aria-label="Breadcrumb"><a href="/">Home</a> · <a href="/">Compatibility tool</a></nav>\n' +
     '    <section class="result-section" id="result" aria-labelledby="result-title">\n' +
     '      <div class="result-card" id="result-card">\n' +
     '        <h2 class="result-title" id="result-title">' +

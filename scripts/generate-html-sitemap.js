@@ -41,7 +41,7 @@ function main() {
   // Section 1: Main Pages
   const mainPages = `
     <li><a href="/">Home</a></li>
-    <li><a href="/compatibility/">Compatibility Guides</a></li>
+    <li><a href="/">Compatibility tool</a></li>
     <li><a href="/plug-types/">Plug Types</a></li>
     <li><a href="/pages/countries/">Country plug standards</a></li>
     <li><a href="/why-plug-types-differ/">Why Plug Types Differ</a></li>
@@ -60,13 +60,7 @@ function main() {
     return `<li><a href="/pages/plug-types/type-${letter}.html">Type ${cap} Plug</a></li>`;
   }).join('\n');
 
-  // Section 4: Compatibility Country Hubs (alphabetically by country name)
-  const hubLinks = countryKeys.map(key => {
-    const name = countries[key] ? countries[key].name : key;
-    return `<li><a href="/compatibility/${key}/">${escapeHtml(name)} Compatibility Guides</a></li>`;
-  }).join('\n');
-
-  // Section 5: Popular Compatibility Guides
+  // Section 4: Popular Compatibility Guides (server-rendered via Pages Functions)
   const popularLinks = POPULAR_COMPAT.map(([orig, dest]) => {
     const oName = countries[orig] ? countries[orig].name : orig;
     const dName = countries[dest] ? countries[dest].name : dest;
@@ -108,13 +102,6 @@ ${countryLinks}
       <h2>Plug Types</h2>
       <ul>
 ${plugLinks}
-      </ul>
-    </section>
-
-    <section class="sitemap-section">
-      <h2>Compatibility Guides by Country</h2>
-      <ul>
-${hubLinks}
       </ul>
     </section>
 

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * One-shot orchestration for static HTML under pages/, compatibility/, sitemap/.
- * Compatibility pair pages (origin-to-destination) are disabled to stay under
- * Cloudflare Pages file limits; country pages, plug-type pages, and hubs stay.
+ * One-shot orchestration for static HTML under pages/, sitemap/.
+ * Country pair guides at /compatibility/{origin}-to-{dest} are served by
+ * Cloudflare Pages Functions only — no static files under /compatibility/.
  *
  * Run from project root: node scripts/generate-programmatic-pages.js
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync, spawnSync } = require('child_process');
+const { spawnSync } = require('child_process');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const PAIR_GLOB_DIR = path.join(PROJECT_ROOT, 'pages', 'compatibility');
@@ -27,27 +27,14 @@ function runNodeScript(relativePath) {
   }
 }
 
-/** Remove legacy static pair pages (if any): pages/compatibility/{origin}-to-{dest}.html */
-function removeCompatibilityPairPages() {
-  if (!fs.existsSync(PAIR_GLOB_DIR)) return;
-  execSync(`find "${PAIR_GLOB_DIR}" -type f -name '*-to-*.html' -delete`, { stdio: 'inherit' });
-  const left = fs.readdirSync(PAIR_GLOB_DIR).filter(f => f.endsWith('.html') && f.includes('-to-'));
-  console.log(
-    'Compatibility pair pages removed (*-to-*.html). Remaining pair-like files:',
-    left.length
-  );
-}
-
-/** Drop per-origin hubs under /compatibility/{slug}/ — they are derived from pair pages. */
-function removeStaleOriginHubDirs() {
-  if (!fs.existsSync(COMPAT_ROOT)) return;
-  let removed = 0;
-  for (const name of fs.readdirSync(COMPAT_ROOT, { withFileTypes: true })) {
-    if (!name.isDirectory()) continue;
-    fs.rmSync(path.join(COMPAT_ROOT, name.name), { recursive: true, force: true });
-    removed++;
+/** Remove all static /compatibility/* and /pages/compatibility/* (CF Functions own pair URLs). */
+function removeAllStaticCompatibilityOutput() {
+  for (const dir of [PAIR_GLOB_DIR, COMPAT_ROOT]) {
+    if (fs.existsSync(dir)) {
+      fs.rmSync(dir, { recursive: true, force: true });
+      console.log('Removed static tree:', path.relative(PROJECT_ROOT, dir));
+    }
   }
-  console.log('Removed', removed, 'per-origin hub directories under /compatibility/');
 }
 
 function countFilesRecursive(dir, acc) {
@@ -74,7 +61,7 @@ function logGeneratedTreeCounts() {
   const byRoot = roots.map(r => ({ rel: path.relative(PROJECT_ROOT, r), files: listAllFilesUnder(r) }));
   const total = byRoot.reduce((s, x) => s + x.files.length, 0);
   console.log('');
-  console.log('=== Generated static file count (pages + compatibility + sitemap) ===');
+  console.log('=== Generated static file count (pages + sitemap; /compatibility is Functions-only) ===');
   for (const { rel, files } of byRoot) {
     console.log(`  ${rel}/: ${files.length}`);
   }
@@ -90,8 +77,7 @@ function logGeneratedTreeCounts() {
 function main() {
   process.chdir(PROJECT_ROOT);
 
-  removeCompatibilityPairPages();
-  removeStaleOriginHubDirs();
+  removeAllStaticCompatibilityOutput();
 
   runNodeScript('generate-country-pages.js');
   runNodeScript('generate-plug-type-pages.js');
@@ -101,8 +87,7 @@ function main() {
     runNodeScript('generate-compatibility-pages.js');
   }
 
-  runNodeScript('generate-compatibility-hub.js');
-  runNodeScript('generate-country-hubs.js');
+  // Hub HTML under /compatibility/ removed — pair pages are Pages Functions only.
   runNodeScript('generate-html-sitemap.js');
 
   logGeneratedTreeCounts();
