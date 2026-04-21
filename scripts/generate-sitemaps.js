@@ -48,17 +48,11 @@ function main() {
   countryEntries.push({ loc: BASE + '/contact.html', priority: '0.7' });
   countryEntries.push({ loc: BASE + '/privacy.html', priority: '0.4' });
   countryEntries.push({ loc: BASE + '/terms.html', priority: '0.4' });
-  countryEntries.push({ loc: BASE + '/compatibility/', priority: '0.8' });
   countryEntries.push({ loc: BASE + '/countries/', priority: '0.8' });
   countryEntries.push({ loc: BASE + '/plug-types/', priority: '0.7' });
   countryEntries.push({ loc: BASE + '/sitemap/index.html', priority: '0.6' });
   countryEntries.push({ loc: BASE + '/why-plug-types-differ/', priority: '0.7' });
   countryEntries.push({ loc: BASE + '/adapter-vs-converter/', priority: '0.7' });
-
-  for (const key of countryKeys) {
-    if (!countries[key]) continue;
-    countryEntries.push({ loc: BASE + '/compatibility/' + key + '/', priority: '0.8' });
-  }
 
   for (const key of countryKeys) {
     if (!countries[key]) continue;
@@ -74,28 +68,38 @@ function main() {
   indexEntries.push({ loc: BASE + '/sitemaps/sitemap-countries.xml', count: countryEntries.length });
   console.log('Wrote public/sitemaps/sitemap-countries.xml:', countryEntries.length, 'URLs');
 
-  // --- Compatibility pages (split into chunks of 50k) ---
-  const compatUrls = [];
-  for (const originKey of countryKeys) {
-    if (!countries[originKey]) continue;
-    for (const destKey of countryKeys) {
-      if (originKey === destKey) continue;
-      compatUrls.push(BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html');
+  if (false) {
+    // Compatibility pair sitemaps disabled while static pair pages are not generated.
+    const compatUrls = [];
+    for (const originKey of countryKeys) {
+      if (!countries[originKey]) continue;
+      for (const destKey of countryKeys) {
+        if (originKey === destKey) continue;
+        compatUrls.push(BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html');
+      }
     }
+
+    const compatEntries = compatUrls.map(loc => ({ loc, priority: '0.6' }));
+    const compatChunk1 = compatEntries.slice(0, MAX_URLS_PER_SITEMAP);
+    const compatChunk2 = compatEntries.slice(MAX_URLS_PER_SITEMAP, MAX_URLS_PER_SITEMAP * 2);
+
+    const compat1Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-1.xml');
+    const compat2Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-2.xml');
+    writeUrlset(compat1Path, compatChunk1);
+    writeUrlset(compat2Path, compatChunk2);
+    indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-1.xml', count: compatChunk1.length });
+    indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-2.xml', count: compatChunk2.length });
+    console.log('Wrote public/sitemaps/sitemap-compatibility-1.xml:', compatChunk1.length, 'URLs');
+    console.log('Wrote public/sitemaps/sitemap-compatibility-2.xml:', compatChunk2.length, 'URLs');
   }
 
-  const compatEntries = compatUrls.map(loc => ({ loc, priority: '0.6' }));
-  const compatChunk1 = compatEntries.slice(0, MAX_URLS_PER_SITEMAP);
-  const compatChunk2 = compatEntries.slice(MAX_URLS_PER_SITEMAP, MAX_URLS_PER_SITEMAP * 2);
-
-  const compat1Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-1.xml');
-  const compat2Path = path.join(PUBLIC_SITEMAPS_DIR, 'sitemap-compatibility-2.xml');
-  writeUrlset(compat1Path, compatChunk1);
-  writeUrlset(compat2Path, compatChunk2);
-  indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-1.xml', count: compatChunk1.length });
-  indexEntries.push({ loc: BASE + '/sitemaps/sitemap-compatibility-2.xml', count: compatChunk2.length });
-  console.log('Wrote public/sitemaps/sitemap-compatibility-1.xml:', compatChunk1.length, 'URLs');
-  console.log('Wrote public/sitemaps/sitemap-compatibility-2.xml:', compatChunk2.length, 'URLs');
+  for (const name of ['sitemap-compatibility-1.xml', 'sitemap-compatibility-2.xml']) {
+    const stale = path.join(PUBLIC_SITEMAPS_DIR, name);
+    if (fs.existsSync(stale)) {
+      fs.unlinkSync(stale);
+      console.log('Removed stale', path.relative(PROJECT_ROOT, stale));
+    }
+  }
 
   // --- Sitemap index ---
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
@@ -103,14 +107,6 @@ function main() {
 
   <sitemap>
     <loc>https://plugtype.world/sitemaps/sitemap-countries.xml</loc>
-  </sitemap>
-
-  <sitemap>
-    <loc>https://plugtype.world/sitemaps/sitemap-compatibility-1.xml</loc>
-  </sitemap>
-
-  <sitemap>
-    <loc>https://plugtype.world/sitemaps/sitemap-compatibility-2.xml</loc>
   </sitemap>
 
 </sitemapindex>
