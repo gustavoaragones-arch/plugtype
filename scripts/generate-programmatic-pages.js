@@ -27,7 +27,7 @@ function runNodeScript(relativePath) {
   }
 }
 
-/** Remove all static pair pages: pages/compatibility/{origin}-to-{dest}.html */
+/** Remove legacy static pair pages (if any): pages/compatibility/{origin}-to-{dest}.html */
 function removeCompatibilityPairPages() {
   if (!fs.existsSync(PAIR_GLOB_DIR)) return;
   execSync(`find "${PAIR_GLOB_DIR}" -type f -name '*-to-*.html' -delete`, { stdio: 'inherit' });

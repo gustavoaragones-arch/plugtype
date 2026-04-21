@@ -58,7 +58,7 @@ function main() {
     const originName = countries[originKey] ? countries[originKey].name : originKey;
     const links = destKeys.map(destKey => {
       const destName = countries[destKey] ? countries[destKey].name : destKey;
-      const href = '/pages/compatibility/' + originKey + '-to-' + destKey + '.html';
+      const href = '/compatibility/' + originKey + '-to-' + destKey;
       return '<li><a href="' + href + '">' + escapeHtml(originName) + ' \u2192 ' + escapeHtml(destName) + '</a></li>';
     }).join('\n');
     sections += '<h2>Compatibility Guides from ' + escapeHtml(originName) + '</h2>\n<ul class="compatibility-grid">\n' + links + '\n</ul>\n';

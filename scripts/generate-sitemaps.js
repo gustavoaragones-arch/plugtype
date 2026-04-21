@@ -73,7 +73,7 @@ function main() {
       if (!countries[originKey]) continue;
       for (const destKey of countryKeys) {
         if (originKey === destKey) continue;
-        compatUrls.push(BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html');
+        compatUrls.push(BASE + '/compatibility/' + originKey + '-to-' + destKey);
       }
     }
 

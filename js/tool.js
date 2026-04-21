@@ -1,6 +1,11 @@
 (function () {
   'use strict';
 
+  var SITE_ORIGIN = 'https://plugtype.world';
+  var SEO_HOME_TITLE = 'Plug Type World – Global Power Plug & Voltage Compatibility Tool';
+  var SEO_HOME_DESC =
+    'Find out if your plug works in another country. Compare plug types, voltage, and frequency instantly with our global compatibility tool.';
+
   var countries = {};
   var fromSelect = document.getElementById('from-country');
   var toSelect = document.getElementById('to-country');
@@ -41,7 +46,7 @@
 
   function loadCountries(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'data/countries.json', true);
+    xhr.open('GET', '/data/countries.json', true);
     xhr.onload = function () {
       if (xhr.status === 200) {
         try {
@@ -198,12 +203,109 @@
     return false;
   }
 
-  function updateResult() {
+  function parseCompatPairFromPath(pathname) {
+    var p = pathname.replace(/\/$/, '');
+    var m = p.match(/^\/compatibility\/([a-z0-9-]+)-to-([a-z0-9-]+)$/i);
+    if (!m) return null;
+    return { origin: m[1].toLowerCase(), dest: m[2].toLowerCase() };
+  }
+
+  function resetSeoHome() {
+    document.title = SEO_HOME_TITLE;
+    var meta = document.getElementById('meta-description');
+    if (meta) meta.setAttribute('content', SEO_HOME_DESC);
+    var can = document.getElementById('canonical-link');
+    if (can) can.setAttribute('href', SITE_ORIGIN + '/');
+  }
+
+  function setSeoCompat(fromKey, toKey) {
+    var from = countries[fromKey];
+    var to = countries[toKey];
+    if (!from || !to) return;
+    var title = from.name + ' to ' + to.name + ' Plug Adapter & Voltage Guide | Plug Type World';
+    var desc =
+      'Check plug compatibility from ' +
+      from.name +
+      ' to ' +
+      to.name +
+      '. See plug types, voltage, and whether you need a travel adapter or voltage converter.';
+    document.title = title;
+    var meta = document.getElementById('meta-description');
+    if (meta) meta.setAttribute('content', desc);
+    var can = document.getElementById('canonical-link');
+    if (can) {
+      can.setAttribute('href', SITE_ORIGIN + '/compatibility/' + fromKey + '-to-' + toKey);
+    }
+  }
+
+  function syncCompatUrlAndSeo() {
+    var fromKey = fromSelect.value;
+    var toKey = toSelect.value;
+    if (!fromKey || !toKey || fromKey === toKey) {
+      resetSeoHome();
+      if (window.location.pathname.indexOf('/compatibility/') === 0 && parseCompatPairFromPath(window.location.pathname)) {
+        history.replaceState(null, '', '/');
+      }
+      return;
+    }
+    var path = '/compatibility/' + fromKey + '-to-' + toKey;
+    if (window.location.pathname !== path) {
+      history.replaceState(null, '', path);
+    }
+    setSeoCompat(fromKey, toKey);
+  }
+
+  function routeNonPairCompatibilityPath() {
+    var path = window.location.pathname.replace(/\/$/, '') || '/';
+    if (path === '/compatibility' || path === '/compatibility/index.html') return false;
+    if (path.indexOf('/compatibility/') !== 0) return false;
+    var rest = path.slice('/compatibility/'.length);
+    if (!rest || rest.indexOf('-to-') !== -1) return false;
+    window.location.replace('/compatibility/');
+    return true;
+  }
+
+  /** e.g. /compatibility/us-to-fr/extra — not a valid pair URL */
+  function routeInvalidMultiSegmentCompatibilityPath() {
+    var path = window.location.pathname.replace(/\/$/, '') || '/';
+    if (path.indexOf('/compatibility/') !== 0) return false;
+    var rest = path.slice('/compatibility/'.length);
+    if (rest.indexOf('/') !== -1) {
+      window.location.replace('/');
+      return true;
+    }
+    return false;
+  }
+
+  function applyCompatDeepLink() {
+    if (routeInvalidMultiSegmentCompatibilityPath()) return true;
+    if (routeNonPairCompatibilityPath()) return true;
+    var pair = parseCompatPairFromPath(window.location.pathname);
+    if (!pair) return false;
+    var from = countries[pair.origin];
+    var to = countries[pair.dest];
+    if (!from || !to || pair.origin === pair.dest) {
+      window.location.replace('/');
+      return true;
+    }
+    fromSelect.value = pair.origin;
+    toSelect.value = pair.dest;
+    setSeoCompat(pair.origin, pair.dest);
+    updateResult({ skipUrlSync: true });
+    return true;
+  }
+
+  function updateResult(opts) {
+    var skipUrlSync = opts && opts.skipUrlSync;
     var fromKey = fromSelect.value;
     var toKey = toSelect.value;
     if (!fromKey || !toKey) {
       if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
+      resetSeoHome();
+      if (window.location.pathname.indexOf('/compatibility/') === 0 && parseCompatPairFromPath(window.location.pathname)) {
+        history.replaceState(null, '', '/');
+      }
       return;
     }
 
@@ -212,6 +314,7 @@
     if (!from || !to) {
       if (deviceHint) deviceHint.hidden = true;
       resultSection.hidden = true;
+      resetSeoHome();
       return;
     }
 
@@ -264,12 +367,21 @@
 
     if (fromKey !== toKey) {
       var slug = fromKey + '-to-' + toKey;
-      var guideHref = '/pages/compatibility/' + slug + '.html';
-      resultGuideLink.href = guideHref;
-      resultGuideLink.textContent = 'View Full Travel Adapter Guide — ' + from.name + ' \u2192 ' + to.name;
-      resultGuideLinkWrap.hidden = false;
+      var guideHref = '/compatibility/' + slug;
+      var here = window.location.pathname.replace(/\/$/, '');
+      if (here === guideHref) {
+        resultGuideLinkWrap.hidden = true;
+      } else {
+        resultGuideLink.href = guideHref;
+        resultGuideLink.textContent = 'View Full Travel Adapter Guide — ' + from.name + ' \u2192 ' + to.name;
+        resultGuideLinkWrap.hidden = false;
+      }
     } else {
       resultGuideLinkWrap.hidden = true;
+    }
+
+    if (!skipUrlSync) {
+      syncCompatUrlAndSeo();
     }
 
     resultSection.hidden = false;
@@ -286,8 +398,12 @@
   function init() {
     loadCountries(function () {
       fillSelects();
-      fromSelect.addEventListener('change', updateResult);
-      toSelect.addEventListener('change', updateResult);
+      fromSelect.addEventListener('change', function () {
+        updateResult();
+      });
+      toSelect.addEventListener('change', function () {
+        updateResult();
+      });
       var deviceBtns = document.querySelectorAll('.device-selector button');
       for (var i = 0; i < deviceBtns.length; i++) {
         deviceBtns[i].addEventListener('click', function () {
@@ -297,8 +413,26 @@
           updateResult();
         });
       }
-      updateResult();
-      autoSelectOriginCountry(countries, updateResult);
+      window.addEventListener('popstate', function () {
+        var pair = parseCompatPairFromPath(window.location.pathname);
+        if (pair && countries[pair.origin] && countries[pair.dest] && pair.origin !== pair.dest) {
+          fromSelect.value = pair.origin;
+          toSelect.value = pair.dest;
+          setSeoCompat(pair.origin, pair.dest);
+        } else {
+          fromSelect.value = '';
+          toSelect.value = '';
+          resetSeoHome();
+        }
+        updateResult({ skipUrlSync: true });
+      });
+
+      if (applyCompatDeepLink()) {
+        autoSelectOriginCountry(countries, function () {});
+      } else {
+        updateResult();
+        autoSelectOriginCountry(countries, updateResult);
+      }
 
       var deviceVoltageInput = document.getElementById('device-voltage-input');
       var checkDeviceVoltageBtn = document.getElementById('check-device-voltage');

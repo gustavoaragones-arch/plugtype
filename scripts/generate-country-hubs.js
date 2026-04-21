@@ -60,7 +60,7 @@ function main() {
 
     const links = destKeys.map(destKey => {
       const destName = countries[destKey] ? countries[destKey].name : destKey;
-      const href = '/pages/compatibility/' + originKey + '-to-' + destKey + '.html';
+      const href = '/compatibility/' + originKey + '-to-' + destKey;
       return '<li><a href="' + href + '">' + escapeHtml(originName) + ' \u2192 ' + escapeHtml(destName) + '</a></li>';
     }).join('\n');
 

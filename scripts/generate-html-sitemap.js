@@ -70,7 +70,7 @@ function main() {
   const popularLinks = POPULAR_COMPAT.map(([orig, dest]) => {
     const oName = countries[orig] ? countries[orig].name : orig;
     const dName = countries[dest] ? countries[dest].name : dest;
-    return `<li><a href="/pages/compatibility/${orig}-to-${dest}.html">${escapeHtml(oName)} \u2192 ${escapeHtml(dName)} Plug Adapter</a></li>`;
+    return `<li><a href="/compatibility/${orig}-to-${dest}">${escapeHtml(oName)} \u2192 ${escapeHtml(dName)} Plug Adapter</a></li>`;
   }).join('\n');
 
   const html = `<!DOCTYPE html>

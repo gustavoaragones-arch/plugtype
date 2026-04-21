@@ -283,7 +283,7 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
   const relatedLinks = related
     .map(
       r =>
-        `<a href="/pages/compatibility/${originKey}-to-${r.key}.html">${origin.name} → ${escapeHtml(r.name)}</a>`
+        `<a href="/compatibility/${originKey}-to-${r.key}">${origin.name} → ${escapeHtml(r.name)}</a>`
     )
     .join(' · ');
 
@@ -309,7 +309,7 @@ function buildPage(originKey, destKey, countries, allDestKeys) {
     '<p class="authority-learn-more">Learn more: <a href="/adapter-vs-converter/">Adapter vs Converter explained</a></p>\n';
 
   const breadcrumb = '<a href="/">Home</a> \u2192 <a href="/compatibility/">Compatibility Guides</a> \u2192 <a href="/compatibility/' + originKey + '/">' + origin.name + '</a> \u2192 ' + dest.name;
-  const canonical = BASE + '/pages/compatibility/' + originKey + '-to-' + destKey + '.html';
+  const canonical = BASE + '/compatibility/' + originKey + '-to-' + destKey;
   const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
   const replacements = {
     '{{TITLE}}': title,
