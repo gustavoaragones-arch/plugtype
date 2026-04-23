@@ -1,4 +1,7 @@
 # Serve sitemaps and robots as static files (must appear before any SPA catch-all)
 /sitemaps/* /sitemaps/:splat 200
 /robots.txt /robots.txt 200
+# 301s: legacy /pages/compatibility/* → /compatibility/* (SEO link-equity consolidation)
+/pages/compatibility/:slug.html /compatibility/:slug 301
+/pages/compatibility/:slug /compatibility/:slug 301
 # /compatibility/{slug} is served by Pages Functions (functions/compatibility/[slug].js)

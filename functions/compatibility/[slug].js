@@ -3,6 +3,8 @@
  * @see https://developers.cloudflare.com/pages/functions/routing/
  */
 
+import countries from '../../data/countries.json';
+
 const SITE_ORIGIN = 'https://plugtype.world';
 
 function escapeHtml(s) {
@@ -79,6 +81,7 @@ function plugIconsHtml(plugTypes) {
     .join('');
 }
 
+
 export async function onRequest(context) {
   var slug = context.params.slug;
   if (!slug || String(slug).indexOf('-to-') === -1) {
@@ -90,13 +93,6 @@ export async function onRequest(context) {
     return new Response('Invalid route', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   }
 
-  var countriesUrl = new URL('/data/countries.json', context.request.url);
-  var res = await fetch(countriesUrl.toString());
-  if (!res.ok) {
-    return new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
-  }
-
-  var countries = await res.json();
   var fromData = countries[keys.from];
   var toData = countries[keys.to];
   if (!fromData || !toData) {
@@ -146,6 +142,70 @@ export async function onRequest(context) {
     '. See plug types, voltage, and whether you need a travel adapter or voltage converter.';
   var canonical = SITE_ORIGIN + '/compatibility/' + keys.from + '-to-' + keys.to;
 
+  // --- Structured data ---
+
+  var fromTypes = (fromData.plug_types || []).join(', ');
+  var toTypes = (toData.plug_types || []).join(', ');
+  var toTypesCount = (toData.plug_types || []).length;
+
+  var adapterAnswer = plugCompat
+    ? 'Both countries share plug type' + (shared.length > 1 ? 's ' : ' ') + shared.join(', ') +
+      ', so your plug may fit without an adapter. Check your specific plug shape to confirm.'
+    : 'Yes. ' + fromData.name + ' uses plug type' + ((fromData.plug_types || []).length !== 1 ? 's ' : ' ') +
+      fromTypes + ' while ' + toData.name + ' uses ' + toTypes + '. You will need a travel adapter.';
+
+  // Reuse voltageRatio already computed above; fall back to 0 if voltages were non-finite.
+  var faqVoltageRatio = (Number.isFinite(va) && Number.isFinite(vb) && Math.max(va, vb) > 0)
+    ? Math.abs(va - vb) / Math.max(va, vb)
+    : 0;
+  var voltageConverterAnswer = faqVoltageRatio <= 0.2
+    ? 'No. Voltage difference is ' + vFrom + ' vs ' + vTo +
+      ' — within tolerance for most modern dual-voltage electronics (100–240V).'
+    : 'Potentially. ' + fromData.name + ' is ' + vFrom + ' and ' + toData.name + ' is ' + vTo +
+      ' — a large difference. Dual-voltage chargers work fine. High-power appliances without ' +
+      '100–240V support may need a voltage converter.';
+
+  var plugTypesAnswer = toData.name + ' uses plug type' + (toTypesCount !== 1 ? 's: ' : ': ') +
+    toTypes + '. Voltage: ' + (toData.voltage != null ? toData.voltage : '—') +
+    'V, ' + (toData.frequency != null ? toData.frequency : '—') + 'Hz.';
+
+  var ldJson = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': SITE_ORIGIN + '/' },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Compatibility Guides', 'item': SITE_ORIGIN + '/compatibility/' },
+          { '@type': 'ListItem', 'position': 3, 'name': fromData.name, 'item': SITE_ORIGIN + '/countries/' + keys.from },
+          { '@type': 'ListItem', 'position': 4, 'name': fromData.name + ' to ' + toData.name, 'item': canonical }
+        ]
+      },
+      {
+        '@type': 'FAQPage',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': 'Do I need a plug adapter from ' + fromData.name + ' to ' + toData.name + '?',
+            'acceptedAnswer': { '@type': 'Answer', 'text': adapterAnswer }
+          },
+          {
+            '@type': 'Question',
+            'name': 'Do I need a voltage converter from ' + fromData.name + ' to ' + toData.name + '?',
+            'acceptedAnswer': { '@type': 'Answer', 'text': voltageConverterAnswer }
+          },
+          {
+            '@type': 'Question',
+            'name': 'What plug types does ' + toData.name + ' use?',
+            'acceptedAnswer': { '@type': 'Answer', 'text': plugTypesAnswer }
+          }
+        ]
+      }
+    ]
+  }).replace(/</g, '\\u003c');
+
+  var jsonLdBlock = '  <script type="application/ld+json">' + ldJson + '</script>\n';
+
   var html =
     '<!DOCTYPE html>\n' +
     '<html lang="en">\n' +
@@ -162,6 +222,7 @@ export async function onRequest(context) {
     escapeHtml(canonical) +
     '">\n' +
     '  <link rel="stylesheet" href="/css/styles.css">\n' +
+    jsonLdBlock +
     '</head>\n' +
     '<body>\n' +
     '  <header class="hero">\n' +
@@ -233,7 +294,7 @@ export async function onRequest(context) {
   return new Response(html, {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600'
+      'Cache-Control': 'public, max-age=600, s-maxage=3600, must-revalidate'
     }
   });
 }
