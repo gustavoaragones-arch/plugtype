@@ -222,12 +222,12 @@
           e.stopPropagation();
           return;
         }
-        window.location.href = '/pages/countries/' + id + '.html';
+        window.location.href = '/countries/' + id;
       });
       pathEl.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          window.location.href = '/pages/countries/' + id + '.html';
+          window.location.href = '/countries/' + id;
         }
       });
     });

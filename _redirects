@@ -4,4 +4,9 @@
 # 301s: legacy /pages/compatibility/* → /compatibility/* (SEO link-equity consolidation)
 /pages/compatibility/:slug.html /compatibility/:slug 301
 /pages/compatibility/:slug /compatibility/:slug 301
+# 301s: legacy /pages/countries/* → /countries/* (Phase 3.1 SEO consolidation)
+/pages/countries/:slug.html /countries/:slug 301
+/pages/countries/:slug /countries/:slug 301
+/pages/countries/ /countries/ 301
+/pages/countries /countries/ 301
 # /compatibility/{slug} is served by Pages Functions (functions/compatibility/[slug].js)

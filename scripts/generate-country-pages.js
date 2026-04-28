@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Generate static country pages (plugs, voltage, high-intent route hubs).
- * Output: pages/countries/{country-key}.html
- * URL policy (Option A): canonical and internal links use /pages/countries/ only.
+ * Output: countries/{country-key}.html
+ * URL policy (Option A): canonical = /countries/{slug} (no .html, served by CF Pages 308 strip).
  * Run from project root: node scripts/generate-country-pages.js
  */
 
@@ -12,7 +12,7 @@ const path = require('path');
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const COUNTRIES_PATH = path.join(PROJECT_ROOT, 'data', 'countries.json');
 const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'templates', 'country-page-template.html');
-const OUT_DIR = path.join(PROJECT_ROOT, 'pages', 'countries');
+const OUT_DIR = path.join(PROJECT_ROOT, 'countries');
 const BASE = 'https://plugtype.world';
 const BUILD_DATE = new Date().toISOString().split('T')[0];
 
@@ -178,21 +178,57 @@ function buildPage(countryKey, countries, allKeys) {
   const h1 = `Power Plugs and Voltage in ${escapeHtml(displayName)}`;
   const title = `Power Plugs in ${displayName} – Type, Voltage & Travel Adapter Guide`;
   const metaDesc = `Find out which plug types, voltage, and frequency are used in ${displayName}. Check if you need a travel adapter or voltage converter.`;
-  const canonical = `${BASE}/pages/countries/${countryKey}.html`;
+  const canonical = `${BASE}/countries/${countryKey}`;
 
   const intro = buildIntro(country, plugTypesInline, voltageDisplay, frequencyDisplay);
 
   const breadcrumb =
-    '<a href="/index.html">Home</a> \u2192 <a href="/pages/countries/">Countries</a> \u2192 ' +
+    '<a href="/">Home</a> \u2192 <a href="/countries/">Countries</a> \u2192 ' +
     escapeHtml(displayName);
 
-  const articleJson = JSON.stringify({
+  const ldJson = JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    description: metaDesc,
-    about: { '@type': 'Place', name: displayName }
-  });
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Countries', item: BASE + '/countries/' },
+          { '@type': 'ListItem', position: 3, name: displayName, item: canonical }
+        ]
+      },
+      {
+        '@type': 'Place',
+        name: displayName,
+        description: metaDesc,
+        additionalProperty: [
+          { '@type': 'PropertyValue', name: 'Plug types', value: (country.plug_types || []).join(', ') },
+          { '@type': 'PropertyValue', name: 'Voltage', value: voltageDisplay },
+          { '@type': 'PropertyValue', name: 'Frequency', value: frequencyDisplay }
+        ]
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What plug type is used in ' + displayName + '?',
+            acceptedAnswer: { '@type': 'Answer', text: displayName + ' uses plug type(s) ' + plugTypesInline + '.' }
+          },
+          {
+            '@type': 'Question',
+            name: 'What voltage is used in ' + displayName + '?',
+            acceptedAnswer: { '@type': 'Answer', text: 'The standard voltage in ' + displayName + ' is ' + voltageDisplay + ' at ' + frequencyDisplay + '.' }
+          },
+          {
+            '@type': 'Question',
+            name: 'Do I need a travel adapter for ' + displayName + '?',
+            acceptedAnswer: { '@type': 'Answer', text: 'Whether you need a travel adapter depends on your country of origin. ' + displayName + ' uses plug type(s) ' + plugTypesInline + '. If your home country uses different plug types, a travel adapter is required.' }
+          }
+        ]
+      }
+    ]
+  }).replace(/</g, '\\u003c');
 
   const routeDests = buildPopularRouteDestinations(countryKey, allKeys, countries);
   const popularRoutes = buildPopularRoutesList(countryKey, country, countries, routeDests);
@@ -220,7 +256,11 @@ function buildPage(countryKey, countries, allKeys) {
     '{{BUILD_DATE}}': BUILD_DATE,
     '{{TOP_ROUTES}}': topRoutes,
     '{{POPULAR_ROUTES}}': popularRoutes,
-    '{{ARTICLE_JSON}}': articleJson
+    '{{LD_JSON}}': ldJson,
+    '{{OG_TITLE}}': escapeHtml(title),
+    '{{OG_DESCRIPTION}}': escapeHtml(metaDesc),
+    '{{OG_URL}}': canonical,
+    '{{OG_IMAGE}}': BASE + '/images/og-default.png'
   };
 
   let html = template;
@@ -251,6 +291,106 @@ function main() {
   }
 
   console.log('Done. Generated', count, 'country pages in', OUT_DIR);
+
+  writeCountryHub(countries, allKeys);
+}
+
+function writeCountryHub(countries, allKeys) {
+  const hubCanonical = BASE + '/countries/';
+
+  // Group by first letter of display name
+  const byLetter = {};
+  for (const key of allKeys) {
+    const c = countries[key];
+    if (!c) continue;
+    const letter = (c.name || key)[0].toUpperCase();
+    if (!byLetter[letter]) byLetter[letter] = [];
+    byLetter[letter].push({ key, name: c.name || key });
+  }
+  const letters = Object.keys(byLetter).sort();
+
+  const letterSections = letters.map(letter => {
+    const items = byLetter[letter]
+      .map(({ key, name }) => `      <li><a href="/countries/${key}">${escapeHtml(name)}</a></li>`)
+      .join('\n');
+    return `    <h2>${letter}</h2>\n    <ul>\n${items}\n    </ul>`;
+  }).join('\n\n');
+
+  const hubLdJson = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Countries', item: hubCanonical }
+        ]
+      },
+      {
+        '@type': 'CollectionPage',
+        name: 'Power Plugs by Country',
+        description: 'Browse plug types, voltage, and frequency for every country in the world. Find out if you need a travel adapter for your destination.',
+        url: hubCanonical
+      }
+    ]
+  }).replace(/</g, '\\u003c');
+
+  const hubTitle = 'Power Plugs by Country – Worldwide Plug Type &amp; Voltage Guide | Plug Type World';
+  const hubDesc = 'Browse plug types, voltage, and frequency for every country in the world. Find out if you need a travel adapter for your destination.';
+  const hubOgTitle = 'Power Plugs by Country – Worldwide Plug Type & Voltage Guide | Plug Type World';
+
+  const hubHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${hubTitle}</title>
+  <meta name="description" content="${escapeHtml(hubDesc)}">
+  <link rel="canonical" href="${hubCanonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escapeHtml(hubOgTitle)}">
+  <meta property="og:description" content="${escapeHtml(hubDesc)}">
+  <meta property="og:url" content="${hubCanonical}">
+  <meta property="og:image" content="${BASE}/images/og-default.png">
+  <meta property="og:site_name" content="Plug Type World">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(hubOgTitle)}">
+  <meta name="twitter:description" content="${escapeHtml(hubDesc)}">
+  <meta name="twitter:image" content="${BASE}/images/og-default.png">
+  <script type="application/ld+json">${hubLdJson}</script>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>Power Plugs by Country</h1>
+    <p class="intro">Browse plug types, voltage, and frequency for every country in the world. Use the guide below to find out if you need a travel adapter for your destination.</p>
+    <p class="tagline"><a href="/">← Compatibility tool</a></p>
+  </header>
+
+  <main class="hub-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> → Countries</nav>
+
+    <section class="country-hub-list">
+${letterSections}
+    </section>
+
+    <section class="cta-section">
+      <h2>Check any country pair</h2>
+      <p><a href="/" class="cta-button">Use the compatibility tool</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap/index.html">HTML Sitemap</a></p>
+    <p>Plug Type World is a product of Albor Digital LLC.</p>
+  </footer>
+</body>
+</html>
+`;
+
+  const hubPath = path.join(OUT_DIR, 'index.html');
+  fs.writeFileSync(hubPath, hubHtml, 'utf8');
+  console.log('Written countries/index.html');
 }
 
 main();

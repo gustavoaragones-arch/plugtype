@@ -54,7 +54,7 @@ function main() {
 
   for (const key of countryKeys) {
     if (!countries[key]) continue;
-    countryEntries.push({ loc: BASE + '/pages/countries/' + key + '.html', priority: '0.8' });
+    countryEntries.push({ loc: BASE + '/countries/' + key, priority: '0.8' });
   }
 
   for (const letter of plugLetters) {
