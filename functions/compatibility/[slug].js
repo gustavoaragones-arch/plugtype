@@ -84,12 +84,19 @@ function plugIconsHtml(plugTypes) {
 
 export async function onRequest(context) {
   var slug = context.params.slug;
-  if (!slug || String(slug).indexOf('-to-') === -1) {
-    return new Response('Invalid route', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
-  }
 
   var keys = parsePairKeys(String(slug));
   if (!keys) {
+    var singleSlug = String(slug).toLowerCase().replace(/\/$/, '');
+    if (/^[a-z0-9-]+$/.test(singleSlug) && countries[singleSlug]) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': '/countries/' + singleSlug,
+          'Cache-Control': 'public, max-age=86400'
+        }
+      });
+    }
     return new Response('Invalid route', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   }
 

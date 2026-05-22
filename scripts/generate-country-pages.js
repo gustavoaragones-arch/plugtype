@@ -176,8 +176,24 @@ function buildPage(countryKey, countries, allKeys) {
       : '— (confirm for your location)';
 
   const h1 = `Power Plugs and Voltage in ${escapeHtml(displayName)}`;
-  const title = `Power Plugs in ${displayName} – Type, Voltage & Travel Adapter Guide`;
-  const metaDesc = `Find out which plug types, voltage, and frequency are used in ${displayName}. Check if you need a travel adapter or voltage converter.`;
+
+  const plugList = plugTypesInline;
+  const titleSuffix = '— Travel Adapter Guide (2026)';
+  const titlePlugDescriptor = (country.plug_types || []).length > 2
+    ? `Plug Types ${(country.plug_types || []).slice(0, 2).join(', ')} & more`
+    : `Plug ${plugTypeWord === 'types' ? 'Types' : 'Type'} ${plugList}`;
+  const title = (country.voltage != null && country.voltage !== '')
+    ? `${displayName} ${titlePlugDescriptor}, ${voltageDisplay} ${titleSuffix}`
+    : `${displayName} ${titlePlugDescriptor} ${titleSuffix}`;
+
+  const voltagePart = (country.voltage != null && country.voltage !== '')
+    ? `${voltageDisplay}/${frequencyDisplay}`
+    : 'local voltage';
+  const metaPlugList = (country.plug_types || []).length > 3
+    ? `Types ${(country.plug_types || []).slice(0, 3).join(', ')} and others`
+    : `Type${(country.plug_types || []).length > 1 ? 's' : ''} ${plugList}`;
+  const metaDesc = `${displayName} uses plug ${metaPlugList} with ${voltagePart}. See if your devices work, which adapters you need, and country-specific buying tips.`;
+
   const canonical = `${BASE}/countries/${countryKey}`;
 
   const intro = buildIntro(country, plugTypesInline, voltageDisplay, frequencyDisplay);
