@@ -216,11 +216,11 @@
 
     resultTitle.textContent = from.name + ' \u2192 ' + to.name;
 
-    resultPlugFromLabel.textContent = from.name + ' plugs';
-    resultPlugFromIcons.innerHTML = renderPlugIcons(from.plug_types);
-
-    resultPlugToLabel.textContent = to.name + ' plugs';
+    resultPlugToLabel.textContent = "Plugs you'll find in " + to.name;
     resultPlugToIcons.innerHTML = renderPlugIcons(to.plug_types);
+
+    resultPlugFromLabel.textContent = 'Your plugs at home (' + from.name + ')';
+    resultPlugFromIcons.innerHTML = renderPlugIcons(from.plug_types);
 
     if (shared.length > 0) {
       resultShared.textContent = 'Shared plug type' + (shared.length > 1 ? 's: ' : ': ') + shared.join(', ');

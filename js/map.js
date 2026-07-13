@@ -21,6 +21,8 @@
   var dragPointerId = null;
   var lastPointerX = 0;
   var lastPointerY = 0;
+  var isCoarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  var tooltipPinnedPath = null;
 
   function updateZoomedClass() {
     if (!container) return;
@@ -177,11 +179,44 @@
     tooltip.style.display = 'block';
     tooltip.style.left = clientX + 12 + 'px';
     tooltip.style.top = clientY + 12 + 'px';
+    tooltip.setAttribute('aria-hidden', 'false');
   }
 
   function hideTooltip() {
     tooltip.style.display = 'none';
     tooltip.textContent = '';
+    tooltip.setAttribute('aria-hidden', 'true');
+    tooltipPinnedPath = null;
+  }
+
+  function familyClass(plugTypes) {
+    var set = new Set((plugTypes || []).map(function (p) {
+      return String(p).toUpperCase();
+    }));
+    var families = new Set();
+    set.forEach(function (letter) {
+      if (letter === 'G') families.add('g');
+      else if (letter === 'I') families.add('i');
+      else if (letter === 'D' || letter === 'M') families.add('dm');
+      else if (letter === 'A' || letter === 'B') families.add('ab');
+      else if (letter === 'C' || letter === 'E' || letter === 'F') families.add('cef');
+      else families.add('other');
+    });
+    if (families.size > 1) return 'plug-mix';
+    if (set.has('G')) return 'plug-g';
+    if (set.has('I')) return 'plug-i';
+    if (set.has('D') || set.has('M')) return 'plug-dm';
+    if (set.has('A') || set.has('B')) return 'plug-ab';
+    if (set.has('C') || set.has('E') || set.has('F')) return 'plug-cef';
+    return 'plug-mix';
+  }
+
+  function initTooltipDismiss() {
+    document.addEventListener('click', function (e) {
+      if (!tooltipPinnedPath) return;
+      if (e.target.closest && e.target.closest('#world-map-container path') === tooltipPinnedPath) return;
+      hideTooltip();
+    }, true);
   }
 
   function injectSvg(svgText) {
@@ -194,12 +229,15 @@
     var mount = zoomLayer || container;
     mount.appendChild(svg);
     initZoomControls();
+    initTooltipDismiss();
 
     var paths = svg.querySelectorAll('path[id]');
     paths.forEach(function (pathEl) {
       var id = pathEl.getAttribute('id');
       var data = countries[id];
       if (!data) return;
+
+      pathEl.classList.add(familyClass(data.plug_types));
 
       pathEl.setAttribute('tabindex', '0');
       pathEl.setAttribute('role', 'button');
@@ -221,6 +259,17 @@
           e.preventDefault();
           e.stopPropagation();
           return;
+        }
+        if (isCoarsePointer) {
+          if (tooltipPinnedPath !== pathEl) {
+            e.preventDefault();
+            e.stopPropagation();
+            tooltipPinnedPath = pathEl;
+            showTooltip(data, e.clientX, e.clientY);
+            tooltip.setAttribute('aria-hidden', 'false');
+            return;
+          }
+          hideTooltip();
         }
         window.location.href = '/countries/' + id;
       });

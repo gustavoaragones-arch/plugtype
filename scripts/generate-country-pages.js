@@ -71,6 +71,26 @@ function formatPlugTypesSpaced(types) {
   return types.map(x => escapeHtml(String(x).trim())).join(' ');
 }
 
+function renderPlugIcons(types) {
+  if (!types || types.length === 0) return '';
+  return types
+    .map(type => {
+      const letter = String(type).trim().toLowerCase();
+      const label = escapeHtml(String(type).trim());
+      return `        <div class="plug-icon"><img src="/images/type-${letter}.svg" alt="Plug type ${label}"><span>Type ${label}</span></div>`;
+    })
+    .join('\n');
+}
+
+function buildPlugIconsBlock(types, countryName) {
+  const icons = renderPlugIcons(types);
+  if (!icons) return '';
+  return (
+    `<div class="hero-plug-icons" aria-label="Plug types used in ${countryName}">\n` +
+    `      <div class="plug-row">\n${icons}\n      </div>\n    </div>`
+  );
+}
+
 function buildPopularRouteDestinations(countryKey, allKeys, countries) {
   const chosen = [];
   const seen = new Set([countryKey]);
@@ -258,6 +278,7 @@ function buildPage(countryKey, countries, allKeys) {
     '{{CANONICAL}}': canonical,
     '{{H1}}': h1,
     '{{INTRO}}': intro,
+    '{{PLUG_ICONS_BLOCK}}': buildPlugIconsBlock(country.plug_types || [], escapedDisplay),
     '{{BREADCRUMB}}': breadcrumb,
     '{{COUNTRY_NAME}}': escapedDisplay,
     '{{PLUG_TYPES_INLINE}}': plugTypesInline,

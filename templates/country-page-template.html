@@ -23,6 +23,7 @@
   <header class="hero">
     <h1>{{H1}}</h1>
     <p class="intro">{{INTRO}}</p>
+    {{PLUG_ICONS_BLOCK}}
     <section class="search-summary">
       <p>
         {{COUNTRY_NAME}} power plug types {{PLUG_TYPES_SPACED}} with {{VOLTAGE}}V {{FREQUENCY}}Hz electricity.
@@ -30,19 +31,22 @@
     </section>
     <p class="search-variants">Plug {{PLUG_TYPE_WORD}} {{PLUG_TYPES_SPACED}} in {{COUNTRY_NAME}}.</p>
     <p class="last-updated">Last updated: {{BUILD_DATE}}</p>
-    <h2 class="country-top-routes-heading">Most searched routes from {{COUNTRY_NAME}}</h2>
-    <ul class="top-routes">
-{{TOP_ROUTES}}
-    </ul>
-    <h2 class="country-popular-routes-heading">Popular travel adapter routes from {{COUNTRY_NAME}}</h2>
-    <ul class="popular-routes">
-{{POPULAR_ROUTES}}
-    </ul>
     <p class="tagline"><a href="/index.html">← Compatibility tool</a></p>
   </header>
 
   <main>
     <nav class="breadcrumb" aria-label="Breadcrumb">{{BREADCRUMB}}</nav>
+
+    <section class="country-routes-section" aria-labelledby="country-top-routes-heading">
+      <h2 id="country-top-routes-heading" class="country-top-routes-heading">Most searched routes from {{COUNTRY_NAME}}</h2>
+      <ul class="top-routes">
+{{TOP_ROUTES}}
+      </ul>
+      <h2 class="country-popular-routes-heading">Popular travel adapter routes from {{COUNTRY_NAME}}</h2>
+      <ul class="popular-routes">
+{{POPULAR_ROUTES}}
+      </ul>
+    </section>
 
     <section class="country-plug-types">
       <h2>What plug types are used in {{COUNTRY_NAME}}?</h2>

@@ -43,6 +43,7 @@
             <select id="to-country" name="to-country" required aria-label="Select destination country">
               <option value="">Select country…</option>
             </select>
+            <div class="detected-country" aria-hidden="true"></div>
           </div>
         </div>
       </form>
@@ -55,33 +56,13 @@
         <button type="button" class="device-btn" data-device="camera">Camera</button>
         <button type="button" class="device-btn" data-device="shaver">Electric Shaver</button>
       </div>
-      <p class="tool-context-links">
-        <a href="/why-plug-types-differ/">Why plug types differ worldwide</a>
-        ·
-        <a href="/adapter-vs-converter/">Adapter vs converter explained</a>
-      </p>
-    </section>
-
-    <section class="explore-countries" aria-labelledby="explore-countries-heading">
-      <h2 id="explore-countries-heading">Explore countries</h2>
-      <ul class="explore-countries-list">
-        <li><a href="/countries/united-states">United States plug types</a></li>
-        <li><a href="/countries/united-kingdom">United Kingdom plug types</a></li>
-        <li><a href="/countries/japan">Japan plug types</a></li>
-      </ul>
     </section>
 
     <section class="result-section" id="result" aria-live="polite" aria-atomic="true" hidden>
       <div class="result-card" id="result-card">
         <h2 class="result-title" id="result-title"></h2>
-        <div class="result-plug-types">
-          <p class="result-plug-label" id="result-plug-from-label"></p>
-          <div class="plug-row" id="result-plug-from-icons"></div>
-          <p class="result-plug-label" id="result-plug-to-label"></p>
-          <div class="plug-row" id="result-plug-to-icons"></div>
-        </div>
-        <div class="result-shared" id="result-shared"></div>
         <div class="result-compat" id="result-compat"></div>
+        <div class="result-shared" id="result-shared"></div>
         <div class="result-voltage">
           <p class="result-voltage-line" id="result-voltage-line"></p>
           <p class="result-voltage-explanation" id="result-voltage-explanation"></p>
@@ -90,9 +71,21 @@
           <h3 class="result-device-advice-title">Device compatibility</h3>
           <p class="result-device-advice-text" id="result-device-advice-text"></p>
         </div>
+        <div class="result-plug-types">
+          <p class="result-plug-label" id="result-plug-to-label"></p>
+          <div class="plug-row" id="result-plug-to-icons"></div>
+          <p class="result-plug-label" id="result-plug-from-label"></p>
+          <div class="plug-row" id="result-plug-from-icons"></div>
+        </div>
         <p class="result-guide-link-wrap" id="result-guide-link-wrap"><a href="#" id="result-guide-link" class="guide-button">View Full Travel Adapter Guide</a></p>
+        <p class="tool-context-links">
+          <a href="/why-plug-types-differ/">Why plug types differ worldwide</a>
+          ·
+          <a href="/adapter-vs-converter/">Adapter vs converter explained</a>
+        </p>
+      </div>
 
-        <section class="adapter-vs-converter" aria-labelledby="adapter-converter-heading">
+      <section class="adapter-vs-converter" aria-labelledby="adapter-converter-heading">
           <h3 id="adapter-converter-heading">Adapter vs voltage converter</h3>
           <div class="comparison-grid">
             <div>
@@ -108,9 +101,9 @@
           </div>
         </section>
 
-        <p id="device-hint" class="device-hint" role="status" aria-live="polite" hidden></p>
+      <p id="device-hint" class="device-hint" role="status" aria-live="polite" hidden></p>
 
-        <section class="why-this-matters">
+      <section class="why-this-matters">
           <h3>Why plug types differ worldwide</h3>
           <p>Electrical systems were developed independently by each country. This is why plug shapes and voltage standards vary between locations.</p>
           <p>Even if a plug fits, voltage differences can affect how your device works.</p>
@@ -121,14 +114,7 @@
           <p>Most phone and laptop chargers support 100–240V and work worldwide—check your device label.</p>
         </div>
 
-        <p class="tool-authority-links">
-          Learn more:
-          <a href="/why-plug-types-differ/">Why plug types differ worldwide</a>
-          ·
-          <a href="/adapter-vs-converter/">Adapter vs Converter explained</a>
-        </p>
-
-        <div class="device-label-checker">
+      <div class="device-label-checker">
           <h3 class="device-label-checker-heading">Check your device label</h3>
           <p class="device-label-checker-intro">Look at the label on your charger or device. Example: <strong>100–240V</strong></p>
           <div class="device-label-checker-row">
@@ -137,13 +123,12 @@
           </div>
           <p class="device-label-checker-hint">Examples: 100–240 &nbsp; 110–220 &nbsp; 230</p>
           <div id="device-voltage-result" class="device-voltage-result" aria-live="polite"></div>
-        </div>
       </div>
     </section>
 
     <section class="world-map-section" id="world-map" aria-labelledby="world-map-heading">
       <h2 id="world-map-heading">Explore plug types around the world</h2>
-      <p class="world-map-intro">Hover over a country to see plug types and voltage. Click to open the full country guide. Zoom in, then click and drag to pan the map.</p>
+      <p class="world-map-intro">Hover over a country to see plug types and voltage. On touch devices, tap once for details, then tap again to open the guide. Zoom in, then click and drag to pan the map.</p>
       <div class="world-map-wrap">
         <div class="world-map-zoom-controls" role="group" aria-label="Map zoom">
           <button type="button" id="map-zoom-in" class="map-zoom-btn" title="Zoom in" aria-label="Zoom in">+</button>
@@ -154,6 +139,14 @@
           <div class="world-map-zoom-layer" id="world-map-zoom-layer"></div>
         </div>
       </div>
+      <ul class="map-legend" aria-label="Plug type families shown on the map">
+        <li><span class="swatch swatch--ab" aria-hidden="true"></span> Type A/B</li>
+        <li><span class="swatch swatch--cef" aria-hidden="true"></span> Type C/E/F</li>
+        <li><span class="swatch swatch--g" aria-hidden="true"></span> Type G</li>
+        <li><span class="swatch swatch--i" aria-hidden="true"></span> Type I</li>
+        <li><span class="swatch swatch--dm" aria-hidden="true"></span> Type D/M</li>
+        <li><span class="swatch swatch--mix" aria-hidden="true"></span> Mixed / other</li>
+      </ul>
     </section>
 
     <section class="popular-countries" aria-labelledby="popular-heading">
@@ -206,10 +199,6 @@
       </dl>
     </section>
 
-    <section class="creators-section">
-      <h2>About the creators</h2>
-      <p>Plug Type World is developed and maintained by <a href="/about.html">Albor Digital LLC</a>, an independent digital product studio building tools and software used by people worldwide.</p>
-    </section>
   </main>
 
   <footer>
